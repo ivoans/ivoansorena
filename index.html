@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHITECT_V1 // Inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#8ff5ff",
+            "primary-container": "#00eefc",
+            "on-primary": "#005d63",
+            surface: "#0e0e0e",
+            "surface-container-low": "#131313",
+            "surface-container-high": "#201f1f",
+            "surface-container-lowest": "#000000",
+            "on-surface": "#ffffff",
+            "on-surface-variant": "#adaaaa",
+            "outline-variant": "#494847",
+            error: "#ff716c",
+            "error-dim": "#d7383b",
+          },
+          fontFamily: {
+            headline: ["Space Grotesk"],
+            body: ["Inter"],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { min-height: 100dvh; }
+    .glow-sm:hover { text-shadow: 0 0 10px rgba(143, 245, 255, 0.8); }
+    .bg-grid-cyan {
+      background-image:
+        linear-gradient(to right, rgba(143,245,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(143,245,255,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+
+  <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] rounded-sm bg-neutral-900/50 backdrop-blur-xl flex justify-between items-center px-6 py-3 z-50 shadow-[0_0_20px_rgba(0,240,255,0.1)]">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary">terminal</span>
+      <span class="font-headline font-black tracking-widest text-primary glow-sm">ARCHITECT_V1</span>
+    </div>
+    <nav class="hidden md:flex gap-8 items-center">
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-primary hover:text-primary transition-all duration-300 hover:scale-105" href="index.html">Inicio</a>
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-all duration-300 hover:scale-105" href="projects.html">Proyectos</a>
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-all duration-300 hover:scale-105" href="skills.html">Sobre Mí</a>
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-all duration-300 hover:scale-105" href="contact.html">Contacto</a>
+    </nav>
+    <button class="md:hidden material-symbols-outlined text-primary">menu</button>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
+      <div class="absolute inset-0 z-0 bg-grid-cyan opacity-20"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-6xl z-0 opacity-40">
+        <div class="w-full h-full bg-gradient-to-br from-primary/20 via-transparent to-transparent blur-[120px] rounded-full"></div>
+      </div>
+      <div class="relative z-10 w-full max-w-7xl flex flex-col md:flex-row items-end justify-between gap-12">
+        <div class="flex flex-col gap-4">
+          <span class="font-mono text-[0.6875rem] text-primary tracking-[0.3em] uppercase">SISTEMA_INIT // LISTO</span>
+          <h1 class="font-headline font-black text-6xl md:text-[7rem] leading-[0.9] tracking-tighter uppercase">
+            ARQUITECTO_DE<br>INTERFACES
+          </h1>
+        </div>
+        <div class="md:max-w-xs text-right">
+          <p class="font-headline font-bold text-xl md:text-2xl text-primary tracking-tighter mb-4">FRONTEND // REACT // JAVASCRIPT</p>
+          <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs ml-auto">Creando experiencias digitales de alta precisi&oacute;n donde la ingenier&iacute;a se une con la est&eacute;tica editorial.</p>
+        </div>
+      </div>
+      <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+        <span class="font-mono text-[10px] tracking-[0.4em] uppercase text-on-surface-variant">DESPLAZAR</span>
+        <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent shadow-[0_0_10px_#8ff5ff]"></div>
+      </div>
+    </section>
+
+    <!-- Bento Lab -->
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <!-- Proyecto destacado -->
+        <div class="md:col-span-8 group relative overflow-hidden bg-surface-container-low p-1 border-t-2 border-primary/20">
+          <div class="relative aspect-video overflow-hidden">
+            <img alt="Paisaje digital 3D abstracto" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcHMpjyrreKI7_F9Ss4nGxYsUE5ETZPV4Y6O1qvo5NRnls59C766DZ2zP6a3KCR62d8OftHsGmaFs0fdAtNrFY7lqSA1wYBk0xoCgyTDG-i90oVwhhBPPOUpNZTtPCbOev3RIYEik6VpEe0D27RVqXemqvAUocTscnZAIzmgEDLyKxnVJeVSewHRbRDRaO39ZMLJe34W0SXXvlevLy4fOM8rMjDuD5ZncL7hefrUT7ZBNIpnW7yM_DkuiVSeWBcGxVor1Dbdl4HCy1">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+          </div>
+          <div class="absolute bottom-8 left-8 right-8">
+            <span class="font-mono text-xs text-primary mb-2 block">PROYECTO_001</span>
+            <h3 class="font-headline text-4xl font-bold tracking-tighter uppercase mb-2">Neon_G&eacute;nesis_V2</h3>
+            <p class="text-on-surface-variant text-sm max-w-md">Dashboard de visualizaci&oacute;n de datos en tiempo real para monitorear m&eacute;tricas de infraestructura cloud.</p>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="md:col-span-4 flex flex-col gap-8">
+          <div class="bg-surface-container-high p-8 flex flex-col justify-between h-1/2">
+            <span class="material-symbols-outlined text-primary text-4xl">memory</span>
+            <div>
+              <h4 class="font-headline font-bold text-lg mb-2">N&Uacute;CLEO_MODULAR</h4>
+              <p class="text-on-surface-variant text-sm font-mono uppercase tracking-tight">Arquitectura de sistemas basada en principios de micro-frontend.</p>
+            </div>
+          </div>
+          <div class="bg-surface-container-lowest p-8 h-1/2 flex flex-col justify-center gap-4">
+            <div class="flex items-center justify-between">
+              <span class="text-on-surface-variant font-mono text-[10px]">DISPONIBILIDAD</span>
+              <span class="text-primary font-mono text-xs">99.9%</span>
+            </div>
+            <div class="w-full h-[1px] bg-outline-variant/30"></div>
+            <div class="flex items-center justify-between">
+              <span class="text-on-surface-variant font-mono text-[10px]">VELOCIDAD</span>
+              <span class="text-primary font-mono text-xs">0.4S_LCP</span>
+            </div>
+            <div class="w-full h-[1px] bg-outline-variant/30"></div>
+            <div class="flex items-center justify-between">
+              <span class="text-on-surface-variant font-mono text-[10px]">LATENCIA</span>
+              <span class="text-primary font-mono text-xs">LOW_TID</span>
+            </div>
+          </div>
+        </div>
+        <!-- Proceso -->
+        <div class="md:col-span-4 bg-surface-container-low p-8 flex flex-col gap-6 order-last md:order-none">
+          <h3 class="font-headline font-black text-2xl tracking-tighter uppercase">EL_PROCESO</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Traduzco l&oacute;gica compleja en interacciones digitales viscerales. Cada p&iacute;xel es calculado, cada transici&oacute;n es intencional.</p>
+          <a class="text-primary font-mono text-xs uppercase tracking-widest flex items-center gap-2 group" href="#">
+            LEER_MANIFIESTO <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+        </div>
+        <!-- Banner tech -->
+        <div class="md:col-span-8 aspect-[21/9] bg-surface-container-high relative overflow-hidden">
+          <img alt="Componentes de tecnolog&iacute;a" class="w-full h-full object-cover opacity-30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtbB6SfQMpTEqAnIsE7ni8oQcy434r7TAfssCLyXAJ9GCrEUxmp0u3q1icY6nOsQdxD6sVSIhe8RtzDH2FsBH1bjnGz-pXJYWOsf5PmTVaZP4G7IpSlByuRBS7qkvUasvsnj30r5XQKgaF2PXbiLFPHlSHheH1Q2nwm6K8o5rSbDeEu_dZbz-RPjCXeHm8j9g18xqGrBel9pet8Db7-NgeyfUQrlbYxCxIcCj--WteJnfRYkBk3Fw_wO-J8Hnu3qNdnPmsUMb1VjAL">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+              <span class="font-mono text-[10px] text-primary tracking-[0.5em] mb-4 block">OPERANDO_EN</span>
+              <h2 class="font-headline font-black text-5xl md:text-7xl tracking-tighter uppercase">REACT_DOM</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-40 bg-surface-container-low overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-16">
+        <div class="w-full md:w-1/2">
+          <h2 class="font-headline font-black text-5xl md:text-7xl tracking-tighter uppercase mb-8">
+            LISTO_PARA_<br><span class="text-primary">EJECUTAR?</span>
+          </h2>
+          <p class="text-on-surface-variant text-lg max-w-sm mb-12">Actualmente disponible para nuevas comisiones de arquitectura y roles de ingenier&iacute;a.</p>
+        </div>
+        <div class="w-full md:w-1/2 flex flex-col gap-12">
+          <div class="relative group">
+            <label class="font-mono text-[10px] text-primary uppercase block mb-2 tracking-widest">COMANDO_NOMBRE</label>
+            <input class="w-full bg-transparent border-0 border-b border-outline-variant text-on-surface focus:ring-0 focus:border-primary px-0 py-4 placeholder:text-neutral-700 font-headline font-bold text-2xl uppercase tracking-tighter" placeholder="ESCRIBE_TU_IDENTIDAD" type="text">
+            <div class="absolute bottom-0 left-0 h-[1px] w-0 bg-primary group-focus-within:w-full transition-all duration-500"></div>
+          </div>
+          <div class="relative group">
+            <label class="font-mono text-[10px] text-primary uppercase block mb-2 tracking-widest">COMANDO_EMAIL</label>
+            <input class="w-full bg-transparent border-0 border-b border-outline-variant text-on-surface focus:ring-0 focus:border-primary px-0 py-4 placeholder:text-neutral-700 font-headline font-bold text-2xl uppercase tracking-tighter" placeholder="TU@CONEXION.HUB" type="email">
+            <div class="absolute bottom-0 left-0 h-[1px] w-0 bg-primary group-focus-within:w-full transition-all duration-500"></div>
+          </div>
+          <button class="w-fit flex items-center gap-4 bg-primary text-on-primary font-headline font-black px-12 py-6 rounded-sm hover:shadow-[0_0_30px_rgba(143,245,255,0.4)] transition-all duration-300 active:scale-95">
+            ENVIAR_SE&Ntilde;AL_ <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-neutral-950 w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/5">
+    <div class="flex flex-col md:flex-row items-center gap-6">
+      <span class="text-primary font-bold font-headline text-sm tracking-widest">ARCHITECT_V1</span>
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">&copy;2024 NEON_ARCHITECT // TODOS LOS DERECHOS RESERVADOS</p>
+    </div>
+    <div class="flex gap-8">
+      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-white transition-colors" href="#">GITHUB</a>
+      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-white transition-colors" href="#">LINKEDIN</a>
+      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-white transition-colors" href="#">READCV</a>
+    </div>
+  </footer>
+
+</body>
+</html> 
