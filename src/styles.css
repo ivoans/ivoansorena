@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* ── Design tokens ────────────────────────────────────── */
+@theme {
+    --color-primary: #8ff5ff;
+    --color-primary-container: #00eefc;
+    --color-on-primary: #005d63;
+    --color-surface: #0e0e0e;
+    --color-surface-container-low: #131313;
+    --color-surface-container-high: #201f1f;
+    --color-surface-container-lowest: #000000;
+    --color-on-surface: #ffffff;
+    --color-on-surface-variant: #adaaaa;
+    --color-outline-variant: #494847;
+    --color-error: #ff716c;
+    --color-error-dim: #d7383b;
+
+    --font-headline: "Space Grotesk", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100dvh;
+        animation: fade-in 0.4s ease;
+        overflow-x: hidden;
+    }
+
+    *,
+    *::before,
+    *::after {
+        max-width: 100%;
+    }
+
+    img,
+    video {
+        height: auto;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        body {
+            animation: none;
+        }
+    }
+}
+
+/* ── Components ───────────────────────────────────────── */
+@layer components {
+
+    /* Fix: Google Fonts material-symbols sets display:inline-block !important,
+     which overrides Tailwind's md:hidden. Force hidden on md+ screens. */
+    @media (min-width: 768px) {
+        #menu-toggle {
+            display: none !important;
+        }
+    }
+
+    /* Scroll-reveal */
+    .fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+            opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-up.visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .fade-up {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+    }
+
+    /* Logo glow */
+    .glow-sm:hover {
+        text-shadow: 0 0 10px rgba(143, 245, 255, 0.6);
+    }
+
+    /* Index: hero grid background */
+    .bg-grid-cyan {
+        background-image:
+            linear-gradient(to right, rgba(143, 245, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(143, 245, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* Projects: glass panel */
+    .glass-gradient {
+        background: linear-gradient(135deg,
+                rgba(143, 245, 255, 0.1) 0%,
+                rgba(0, 238, 252, 0.05) 100%);
+    }
+
+    /* Skills: gradient text */
+    .text-gradient-cyan {
+        background: linear-gradient(135deg, #8ff5ff 0%, #00eefc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}

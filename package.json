@@ -1,0 +1,29 @@
+{
+  "name": "ivoansorena",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "postcss src/styles.css -o dist/styles.css --watch",
+    "build": "NODE_ENV=production postcss src/styles.css -o dist/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivoans/ivoansorena.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivoans/ivoansorena/issues"
+  },
+  "homepage": "https://github.com/ivoans/ivoansorena#readme",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "autoprefixer": "^10.4.27",
+    "cssnano": "^7.1.4",
+    "postcss": "^8.5.8",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.2.2"
+  }
+}

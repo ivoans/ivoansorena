@@ -1,94 +1,102 @@
 <!DOCTYPE html>
 <html class="dark" lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCHITECT_V1 // Sobre M&iacute;</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            primary: "#8ff5ff",
-            "primary-container": "#00eefc",
-            "on-primary": "#005d63",
-            surface: "#0e0e0e",
-            "surface-container-low": "#131313",
-            "surface-container-high": "#201f1f",
-            "surface-container-lowest": "#000000",
-            "on-surface": "#ffffff",
-            "on-surface-variant": "#adaaaa",
-            "outline-variant": "#494847",
-            error: "#ff716c",
-            "error-dim": "#d7383b",
-          },
-          fontFamily: {
-            headline: ["Space Grotesk"],
-            body: ["Inter"],
-          },
-        },
-      },
-    }
-  </script>
-  <style>
-    body { min-height: 100dvh; }
-    .glow-sm:hover { text-shadow: 0 0 10px rgba(143, 245, 255, 0.6); }
-    .text-gradient-cyan {
-      background: linear-gradient(135deg, #8ff5ff 0%, #00eefc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  </style>
+  <meta name="description"
+    content="Sobre Ivo Ansorena — Desarrollador frontend con experiencia en React, Next.js y arquitectura de interfaces modernas.">
+  <meta property="og:title" content="ARCHITECT_V1 // Sobre Mí">
+  <meta property="og:description"
+    content="Sobre Ivo Ansorena — Desarrollador frontend con experiencia en React, Next.js y arquitectura de interfaces modernas.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0e0e0e">
+  <title>IVO ANS // Sobre Mí</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><rect fill=%27%230e0e0e%27 width=%27100%27 height=%27100%27 rx=%2712%27/><text x=%2750%27 y=%2762%27 text-anchor=%27middle%27 font-size=%2756%27 font-family=%27monospace%27 fill=%27%238ff5ff%27>A</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@700;800;900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="dist/styles.css">
 </head>
+
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
 
-  <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] rounded-sm bg-neutral-900/50 backdrop-blur-xl flex justify-between items-center px-6 py-3 z-50 shadow-[0_0_20px_rgba(0,240,255,0.1)]">
-    <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-primary">terminal</span>
-      <span class="font-headline font-black tracking-widest text-primary glow-sm">ARCHITECT_V1</span>
-    </div>
-    <nav class="hidden md:flex gap-8 items-center">
-      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-all duration-300 hover:scale-105" href="index.html">Inicio</a>
-      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-all duration-300 hover:scale-105" href="projects.html">Proyectos</a>
-      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-primary hover:text-primary transition-all duration-300 hover:scale-105" href="skills.html">Sobre Mí</a>
-      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-all duration-300 hover:scale-105" href="contact.html">Contacto</a>
-    </nav>
-    <button class="md:hidden material-symbols-outlined text-primary">menu</button>
-  </header>
+  <!-- Skip to content -->
+  <a href="#main"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] focus:bg-primary focus:text-on-primary focus:px-4 focus:py-2 focus:rounded-sm focus:font-headline focus:font-bold focus:text-sm">Ir
+    al contenido</a>
 
-  <main class="min-h-screen pt-32 pb-24 px-6 md:px-12 lg:px-24">
-    <!-- Sobre m&iacute; -->
+  <header
+    class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl rounded-sm bg-neutral-900/60 backdrop-blur-xl flex justify-between items-center px-6 py-3 z-50 shadow-[0_0_20px_rgba(0,240,255,0.08)] border border-white/5">
+    <a href="index.html" class="flex items-center gap-2" aria-label="Inicio">
+      <span class="material-symbols-outlined text-primary" aria-hidden="true">terminal</span>
+      <span class="font-headline font-black tracking-widest text-primary text-sm glow-sm">IVO_ANSORENA</span>
+    </a>
+    <nav class="hidden md:flex gap-8 items-center" aria-label="Navegación principal">
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
+        href="index.html">Inicio</a>
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
+        href="projects.html">Proyectos</a>
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-primary hover:text-primary transition-colors duration-200"
+        href="skills.html">Sobre Mí</a>
+      <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
+        href="contact.html">Contacto</a>
+    </nav>
+    <button id="menu-toggle" class="md:hidden material-symbols-outlined text-primary text-2xl" aria-label="Abrir menú"
+      aria-expanded="false" aria-controls="mobile-menu">menu</button>
+  </header>
+  <!-- Mobile menu -->
+  <div id="mobile-menu"
+    class="fixed inset-0 z-[60] bg-surface/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+    aria-hidden="true" role="dialog" aria-label="Menú de navegación">
+    <button id="menu-close" class="absolute top-6 right-6 material-symbols-outlined text-primary text-3xl"
+      aria-label="Cerrar menú">close</button>
+    <a class="font-headline font-bold text-3xl tracking-tighter uppercase text-on-surface hover:text-primary transition-colors"
+      href="index.html">Inicio</a>
+    <a class="font-headline font-bold text-3xl tracking-tighter uppercase text-on-surface hover:text-primary transition-colors"
+      href="projects.html">Proyectos</a>
+    <a class="font-headline font-bold text-3xl tracking-tighter uppercase text-primary hover:text-primary transition-colors"
+      href="skills.html">Sobre Mí</a>
+    <a class="font-headline font-bold text-3xl tracking-tighter uppercase text-on-surface hover:text-primary transition-colors"
+      href="contact.html">Contacto</a>
+  </div>
+
+  <main id="main" class="min-h-screen pt-32 pb-24 px-6 md:px-12 lg:px-24">
+    <!-- Sobre mí -->
     <section class="max-w-7xl mx-auto mb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       <div class="lg:col-span-7">
         <div class="flex items-center gap-4 mb-8">
-          <div class="h-[1px] w-12 bg-primary"></div>
+          <div class="h-[1px] w-12 bg-primary" aria-hidden="true"></div>
           <span class="font-mono text-primary text-xs tracking-widest uppercase">Identidad // V1.0.4</span>
         </div>
-        <h1 class="font-headline font-bold text-6xl md:text-8xl tracking-tighter mb-12 leading-none">
+        <h1 class="font-headline font-bold text-[clamp(2.5rem,9vw,6rem)] tracking-tighter mb-8 md:mb-12 leading-none">
           FORJANDO EL <br>
-          <span class="text-gradient-cyan">VAC&Iacute;O_DIGITAL.</span>
+          <span class="text-gradient-cyan">VACÍO_DIGITAL.</span>
         </h1>
-        <!-- Bio estilo comentario de c&oacute;digo -->
-        <div class="bg-surface-container-low p-8 relative overflow-hidden group">
-          <div class="absolute top-0 left-0 w-1 h-full bg-primary/20 group-hover:bg-primary transition-colors"></div>
+        <div class="bg-surface-container-low p-6 md:p-8 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-1 h-full bg-primary/20 group-hover:bg-primary transition-colors"
+            aria-hidden="true"></div>
           <div class="font-mono text-on-surface-variant leading-relaxed text-sm md:text-base space-y-2">
-            <p class="text-neutral-600">/**</p>
+            <p class="text-neutral-500">/**</p>
             <p class="pl-4"><span class="text-neutral-500">*</span> Soy un desarrollador frontend que arquitecta</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> interfaces de usuario inmersivas con enfoque en precisi&oacute;n</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> quir&uacute;rgica y est&eacute;tica editorial de alto contraste.</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> Actualmente refinando el balance entre estructura</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> m&iacute;nima e interacci&oacute;n el&eacute;ctrica.</p>
-            <p class="text-neutral-600">*/</p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> interfaces de usuario inmersivas con enfoque en
+              precisión</p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> quirúrgica y estética editorial de alto contraste.
+            </p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> Actualmente refinando el balance entre estructura
+            </p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> mínima e interacción eléctrica.</p>
+            <p class="text-neutral-500">*/</p>
           </div>
         </div>
       </div>
       <!-- Panel terminal -->
       <div class="lg:col-span-5 flex flex-col gap-6">
         <div class="bg-surface-container-high p-6 rounded-sm shadow-2xl">
-          <div class="flex gap-2 mb-6">
+          <div class="flex gap-2 mb-6" aria-hidden="true">
             <div class="w-3 h-3 rounded-full bg-error-dim/40"></div>
             <div class="w-3 h-3 rounded-full bg-primary/40"></div>
             <div class="w-3 h-3 rounded-full bg-outline-variant/40"></div>
@@ -96,88 +104,109 @@
           <div class="space-y-4 font-mono text-xs md:text-sm">
             <div class="flex justify-between items-center py-2 border-b border-white/5">
               <span class="text-neutral-500">ESTADO_USUARIO:</span>
-              <span class="text-primary font-bold">NIVEL: DESARROLLANDO GRANDEZA</span>
+              <span class="text-primary font-bold">DESARROLLANDO_GRANDEZA</span>
             </div>
             <div class="flex justify-between items-center py-2 border-b border-white/5">
-              <span class="text-neutral-500">UBICACI&Oacute;N:</span>
-              <span>BERLIN_DE [REMOTO_HABILITADO]</span>
+              <span class="text-neutral-500">UBICACIÓN:</span>
+              <span>ART // ARGENTINA</span>
             </div>
             <div class="flex justify-between items-center py-2 border-b border-white/5">
-              <span class="text-neutral-500">A&Ntilde;OS_EXP:</span>
-              <span>01.5 // JUNIOR_ELITE</span>
+              <span class="text-neutral-500">AÑOS_EXP:</span>
+              <span>1.5+ AÑOS</span>
             </div>
             <div class="flex justify-between items-center py-2 border-b border-white/5">
-              <span class="text-neutral-500">CONSUMO_CAF&Eacute;:</span>
+              <span class="text-neutral-500">CONSUMO_CAFÉ:</span>
               <span>OVERLOAD_ERR</span>
             </div>
-            <div class="pt-4">
+            <div class="pt-4" aria-label="Progreso de optimización: 67%">
               <div class="h-1 w-full bg-neutral-800 rounded-full overflow-hidden">
                 <div class="h-full w-2/3 bg-primary shadow-[0_0_10px_#8ff5ff]"></div>
               </div>
               <div class="flex justify-between mt-2 text-[10px] text-neutral-500 uppercase">
-                <span>Optimizaci&oacute;n</span>
-                <span>67% Completo</span>
+                <span>Optimización</span>
+                <span>67%</span>
               </div>
             </div>
           </div>
         </div>
         <div class="relative h-64 overflow-hidden rounded-sm group">
-          <img alt="Circuito con luces ne&oacute;n cyan" class="w-full h-full object-cover grayscale brightness-50 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL9HC-RP3wH7kS13RmcsitKy5QvnxQxFndbN_Yl1dCy_ttympLTxmcisuvi3nC1yf5NI4P683if8HcErhzC-oG3TvkIR3bffVPCKvfXEZjBX_KUKKTIKXp_KBWuM7R-SG5RXdSRQaMg7ZDqi_CJmjrhqu0sVV3tQh1Io9esSOi8KQ3p2tQk2jHy6oSccsM8aXA2tdunn0Qy5Bz_QwgLUcRJEYoXu30DsCH3a_rI9F6SqhHeUJvKKBqbmjicRglK2tlI2GBYT2OUUmM">
+          <img alt="Placa de circuito con luces neón cyan en habitación oscura"
+            class="w-full h-full object-cover grayscale brightness-50 group-hover:scale-110 transition-transform duration-700"
+            loading="lazy" decoding="async"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL9HC-RP3wH7kS13RmcsitKy5QvnxQxFndbN_Yl1dCy_ttympLTxmcisuvi3nC1yf5NI4P683if8HcErhzC-oG3TvkIR3bffVPCKvfXEZjBX_KUKKTIKXp_KBWuM7R-SG5RXdSRQaMg7ZDqi_CJmjrhqu0sVV3tQh1Io9esSOi8KQ3p2tQk2jHy6oSccsM8aXA2tdunn0Qy5Bz_QwgLUcRJEYoXu30DsCH3a_rI9F6SqhHeUJvKKBqbmjicRglK2tlI2GBYT2OUUmM">
           <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
           <div class="absolute bottom-4 left-4">
-            <span class="font-mono text-[10px] text-primary tracking-widest uppercase bg-black/80 px-2 py-1">Sistema_Visual_01</span>
+            <span
+              class="font-mono text-[10px] text-primary tracking-widest uppercase bg-black/80 px-2 py-1">Sistema_Visual_01</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Stack principal -->
-    <section class="max-w-7xl mx-auto py-24">
+    <section class="max-w-7xl mx-auto py-24 fade-up">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
         <h2 class="font-headline font-black text-4xl md:text-6xl tracking-tighter uppercase">
           EL <span class="text-primary">STACK</span><br>PRINCIPAL
         </h2>
-        <p class="font-mono text-[10px] text-neutral-500 max-w-xs uppercase leading-loose text-right">
-          Renderizado acelerado por hardware de tecnolog&iacute;as fundamentales que alimentan la arquitectura actual. Sujeto a evoluci&oacute;n constante.
+        <p class="font-mono text-[10px] text-neutral-500 max-w-xs uppercase leading-loose md:text-right">
+          Tecnologías fundamentales que alimentan la arquitectura actual. Sujeto a evolución constante.
         </p>
       </div>
-      <!-- Grid de tecnolog&iacute;as -->
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-outline-variant/10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-outline-variant/10">
         <!-- HTML -->
-        <div class="col-span-2 row-span-2 bg-surface aspect-square md:aspect-auto p-8 flex flex-col justify-between group hover:bg-surface-container-low transition-colors relative overflow-hidden">
-          <span class="font-mono text-[10px] text-neutral-500 group-hover:text-primary transition-colors">01 // ESTRUCTURA</span>
-          <h3 class="font-headline font-black text-7xl md:text-9xl tracking-tighter text-on-surface/10 group-hover:text-primary/20 transition-all duration-500 absolute -bottom-4 -right-4">HTML</h3>
+        <div
+          class="col-span-1 sm:col-span-2 row-span-2 bg-surface aspect-square md:aspect-auto p-6 md:p-8 flex flex-col justify-between group hover:bg-surface-container-low transition-colors relative overflow-hidden">
+          <span class="font-mono text-[10px] text-neutral-500 group-hover:text-primary transition-colors">01 //
+            ESTRUCTURA</span>
+          <h3
+            class="font-headline font-black text-5xl md:text-9xl tracking-tighter text-on-surface/10 group-hover:text-primary/20 transition-all duration-500 absolute -bottom-4 -right-4"
+            aria-hidden="true">HTML</h3>
           <div class="relative z-10">
-            <p class="font-headline font-bold text-4xl group-hover:translate-x-2 transition-transform">HTML5</p>
-            <p class="font-mono text-[10px] text-neutral-500 mt-4 leading-relaxed">Arquitectura sem&aacute;ntica para precisi&oacute;n quir&uacute;rgica en motores de b&uacute;squeda.</p>
+            <p class="font-headline font-bold text-3xl md:text-4xl group-hover:translate-x-2 transition-transform">HTML5
+            </p>
+            <p class="font-mono text-[10px] text-neutral-500 mt-4 leading-relaxed">Arquitectura semántica para precisión
+              quirúrgica en motores de búsqueda.</p>
           </div>
         </div>
         <!-- CSS -->
-        <div class="col-span-2 bg-surface-container-low p-8 flex flex-col justify-center relative group overflow-hidden border-l border-white/5">
-          <h3 class="font-headline font-black text-6xl tracking-tighter opacity-80 group-hover:text-primary-container transition-colors">CSS / TAILWIND</h3>
-          <div class="absolute top-4 right-4 h-2 w-2 bg-primary animate-pulse"></div>
-          <p class="font-mono text-[10px] text-neutral-500 mt-2 uppercase tracking-widest">Protocolo de Control Est&eacute;tico</p>
+        <div
+          class="col-span-1 sm:col-span-2 bg-surface-container-low p-6 md:p-8 flex flex-col justify-center relative group overflow-hidden border-l border-white/5">
+          <h3
+            class="font-headline font-black text-3xl sm:text-5xl md:text-6xl tracking-tighter opacity-80 group-hover:text-primary-container transition-colors">
+            CSS / TAILWIND</h3>
+          <div class="absolute top-4 right-4 h-2 w-2 bg-primary animate-pulse" aria-hidden="true"></div>
+          <p class="font-mono text-[10px] text-neutral-500 mt-2 uppercase tracking-widest">Protocolo de Control Estético
+          </p>
         </div>
         <!-- JS -->
-        <div class="col-span-2 lg:col-span-2 bg-surface p-8 flex items-center justify-between group border-l border-b border-white/5">
-          <div class="h-16 w-px bg-primary/20 group-hover:bg-primary transition-colors"></div>
+        <div
+          class="col-span-1 sm:col-span-2 lg:col-span-2 bg-surface p-6 md:p-8 flex items-center justify-between group border-l border-b border-white/5">
+          <div class="h-16 w-px bg-primary/20 group-hover:bg-primary transition-colors" aria-hidden="true"></div>
           <div class="text-right">
-            <p class="font-mono text-[10px] text-primary uppercase mb-2">03 // L&oacute;gica</p>
-            <h3 class="font-headline font-bold text-5xl tracking-tighter">JS_ES6+</h3>
+            <p class="font-mono text-[10px] text-primary uppercase mb-2">03 // Lógica</p>
+            <h3 class="font-headline font-bold text-3xl sm:text-5xl tracking-tighter">JS_ES6+</h3>
           </div>
         </div>
         <!-- REACT -->
-        <div class="col-span-2 md:col-span-4 lg:col-span-3 bg-surface-container-high p-12 flex flex-col md:flex-row items-center gap-12 group">
+        <div
+          class="col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-3 bg-surface-container-high p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 group">
           <div class="relative">
-            <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <h3 class="font-headline font-black text-8xl md:text-9xl tracking-tighter text-gradient-cyan relative z-10">REACT</h3>
+            <div
+              class="absolute inset-0 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-hidden="true"></div>
+            <h3
+              class="font-headline font-black text-6xl sm:text-8xl md:text-9xl tracking-tighter text-gradient-cyan relative z-10">
+              REACT</h3>
           </div>
           <div class="flex-1 space-y-4">
-            <span class="font-mono text-[10px] text-primary-container bg-primary-container/10 px-3 py-1 rounded-full">FRAMEWORK_ACTIVO</span>
+            <span
+              class="font-mono text-[10px] text-primary-container bg-primary-container/10 px-3 py-1 rounded-full">FRAMEWORK_ACTIVO</span>
             <p class="text-sm text-on-surface-variant leading-relaxed">
-              Ecosistemas basados en componentes dise&ntilde;ados para gesti&oacute;n de estado de alto rendimiento y flujos de usuario fluidos.
+              Ecosistemas basados en componentes diseñados para gestión de estado de alto rendimiento y flujos de
+              usuario fluidos.
             </p>
-            <div class="flex gap-4">
+            <div class="flex gap-4" aria-hidden="true">
               <span class="material-symbols-outlined text-primary scale-75">data_object</span>
               <span class="material-symbols-outlined text-primary scale-75">auto_awesome</span>
               <span class="material-symbols-outlined text-primary scale-75">sdk</span>
@@ -185,29 +214,76 @@
           </div>
         </div>
         <!-- NEXTJS -->
-        <div class="col-span-2 lg:col-span-3 bg-surface p-8 flex flex-col justify-end group border-t border-white/5">
-          <span class="font-mono text-[10px] text-neutral-600 mb-8">DEPENDENCIA_EXPERIMENTAL</span>
-          <h3 class="font-headline font-bold text-5xl tracking-tighter group-hover:text-white transition-colors">NEXT.JS 14</h3>
+        <div
+          class="col-span-1 sm:col-span-2 lg:col-span-3 bg-surface p-6 md:p-8 flex flex-col justify-end group border-t border-white/5">
+          <span class="font-mono text-[10px] text-neutral-500 mb-8">DEPENDENCIA_EXPERIMENTAL</span>
+          <h3
+            class="font-headline font-bold text-3xl sm:text-5xl tracking-tighter group-hover:text-white transition-colors">
+            NEXT.JS 14</h3>
           <div class="mt-6 flex items-center gap-2">
-            <div class="flex-1 h-[1px] bg-neutral-800"></div>
-            <span class="font-mono text-[9px] text-neutral-500 uppercase">Componentes_Server_Optimizados</span>
+            <div class="flex-1 h-[1px] bg-neutral-800" aria-hidden="true"></div>
+            <span class="font-mono text-[9px] text-neutral-500 uppercase">Server_Components</span>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-neutral-950 w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/5">
+  <footer
+    class="bg-neutral-950 w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5">
     <div class="flex flex-col md:flex-row items-center gap-6">
       <span class="text-primary font-bold font-headline text-sm tracking-widest">ARCHITECT_V1</span>
-      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">&copy;2024 NEON_ARCHITECT // TODOS LOS DERECHOS RESERVADOS</p>
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">&copy; 2026 NEON_ARCHITECT // TODOS
+        LOS DERECHOS RESERVADOS</p>
     </div>
     <div class="flex gap-8">
-      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-white transition-colors" href="#">GITHUB</a>
-      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-white transition-colors" href="#">LINKEDIN</a>
-      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-white transition-colors" href="#">READCV</a>
+      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
+        href="#" aria-label="GitHub">GITHUB</a>
+      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
+        href="#" aria-label="LinkedIn">LINKEDIN</a>
+      <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
+        href="#" aria-label="ReadCV">READCV</a>
     </div>
   </footer>
 
+  <script>
+    // Mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuCloseBtn = document.getElementById('menu-close');
+
+    function openMenu() {
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+      mobileMenu.classList.add('opacity-100');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      menuCloseBtn.focus();
+    }
+    function closeMenu() {
+      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+      mobileMenu.classList.remove('opacity-100');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      menuToggle.focus();
+    }
+    menuToggle?.addEventListener('click', openMenu);
+    menuCloseBtn?.addEventListener('click', closeMenu);
+    mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu?.getAttribute('aria-hidden') === 'false') closeMenu(); });
+
+    // Scroll animations
+    const fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+  </script>
 </body>
+
 </html>
