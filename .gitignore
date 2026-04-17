@@ -1,4 +1,3 @@
 node_modules/
 dist/
-.github/agents/seo-optimizer.agent/
-.github/agents/ui-designer.agent/
+.github/
