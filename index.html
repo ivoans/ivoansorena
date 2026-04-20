@@ -77,7 +77,7 @@
         </a>
         <nav class="hidden md:flex gap-8 items-center" aria-label="Navegación principal">
             <a class="font-headline font-bold tracking-tighter uppercase text-sm text-primary hover:text-primary transition-colors duration-200"
-                href="index.html">Inicio</a>
+                href="index.html" aria-current="page">Inicio</a>
             <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
                 href="projects.html">Proyectos</a>
             <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
@@ -141,28 +141,26 @@
         <!-- Bento Lab -->
         <section class="py-16 md:py-32 px-6 max-w-7xl mx-auto fade-up">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-                <div
-                    class="md:col-span-8 group relative overflow-hidden bg-surface-container-low p-1 border-t-2 border-primary/20 hover:border-primary/50 transition-colors duration-300">
+                <a class="md:col-span-8 group relative overflow-hidden bg-surface-container-low p-1 border-t-2 border-primary/20 hover:border-primary/50 transition-colors duration-300 block"
+                    target="_blank" rel="noopener noreferrer"
+                    href="https://proyecto-final-frontend-one-beta.vercel.app/presentacion">
                     <div class="relative aspect-video overflow-hidden">
                         <img alt="Paisaje digital 3D abstracto con grillas wireframe cyan"
                             class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                             loading="lazy" decoding="async"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcHMpjyrreKI7_F9Ss4nGxYsUE5ETZPV4Y6O1qvo5NRnls59C766DZ2zP6a3KCR62d8OftHsGmaFs0fdAtNrFY7lqSA1wYBk0xoCgyTDG-i90oVwhhBPPOUpNZTtPCbOev3RIYEik6VpEe0D27RVqXemqvAUocTscnZAIzmgEDLyKxnVJeVSewHRbRDRaO39ZMLJe34W0SXXvlevLy4fOM8rMjDuD5ZncL7hefrUT7ZBNIpnW7yM_DkuiVSeWBcGxVor1Dbdl4HCy1">
-                        <a href="https://proyecto-final-frontend-one-beta.vercel.app/presentacion">
-                            <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
                     </div>
-
                     <div class="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8">
                         <span class="font-mono text-xs text-primary mb-2 block">PROYECTO_DESTACADO</span>
                         <h2 class="font-headline text-2xl sm:text-4xl font-bold tracking-tighter uppercase mb-2">
                             SISTEMA_DE_TURNOS</h2>
-                        <p class="text-on-surface-variant text-sm max-w-md">Sistema web especifico para canchas o
+                        <p class="text-on-surface-variant text-sm max-w-md">Sistema web específico para canchas o
                             clubes, desarrollado con React y
                             TypeScript, con base de datos relacional. Deployada en Vercel y funcionando en
                             producción.</p>
                     </div>
-                    </a>
-                </div>
+                </a>
                 <div class="md:col-span-4 flex flex-col gap-8">
                     <div
                         class="bg-surface-container-high p-8 flex flex-col justify-between h-1/2 border border-white/5 hover:border-primary/20 transition-colors duration-300">
@@ -256,52 +254,15 @@
         </div>
         <div class="flex gap-8">
             <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
-                href="#" aria-label="GitHub">GITHUB</a>
+                href="https://github.com/ivoans" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GITHUB</a>
             <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
-                href="#" aria-label="LinkedIn">LINKEDIN</a>
+                href="https://www.linkedin.com/in/ivo-ansorena-693a40322/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LINKEDIN</a>
             <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
                 href="#" aria-label="ReadCV">READCV</a>
         </div>
     </footer>
 
-    <script>
-        // Mobile menu
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuCloseBtn = document.getElementById('menu-close');
-
-        function openMenu() {
-            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-            mobileMenu.classList.add('opacity-100');
-            mobileMenu.setAttribute('aria-hidden', 'false');
-            menuToggle.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
-            menuCloseBtn.focus();
-        }
-        function closeMenu() {
-            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-            mobileMenu.classList.remove('opacity-100');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-            menuToggle.focus();
-        }
-        menuToggle?.addEventListener('click', openMenu);
-        menuCloseBtn?.addEventListener('click', closeMenu);
-        mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-        document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu?.getAttribute('aria-hidden') === 'false') closeMenu(); });
-
-        // Scroll animations
-        const fadeObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    fadeObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
-    </script>
+    <script src="js/main.js" defer></script>
 </body>
 
 </html>

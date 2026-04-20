@@ -19,7 +19,8 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sobre Mí | Ivo Ansorena — Desarrollador Backend Junior Argentina">
-  <meta name="twitter:description" content="Desarrollador backend y full stack. Estudiante UTN. Node.js, Express, SQL, React, Python. Disponible para empleo en Argentina.">
+  <meta name="twitter:description"
+    content="Desarrollador backend y full stack. Estudiante UTN. Node.js, Express, SQL, React, Python. Disponible para empleo en Argentina.">
   <meta name="twitter:image" content="https://ivoansorena.com/og-image.jpg">
   <meta name="theme-color" content="#0e0e0e">
   <title>Sobre Mí | Ivo Ansorena — Desarrollador Backend Junior Argentina</title>
@@ -74,7 +75,7 @@
       <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
         href="projects.html">Proyectos</a>
       <a class="font-headline font-bold tracking-tighter uppercase text-sm text-primary hover:text-primary transition-colors duration-200"
-        href="skills.html">Sobre Mí</a>
+        href="skills.html" aria-current="page">Sobre Mí</a>
       <a class="font-headline font-bold tracking-tighter uppercase text-sm text-neutral-500 hover:text-primary transition-colors duration-200"
         href="contact.html">Contacto</a>
     </nav>
@@ -114,11 +115,13 @@
             aria-hidden="true"></div>
           <div class="font-mono text-on-surface-variant leading-relaxed text-sm md:text-base space-y-2">
             <p class="text-neutral-500">/**</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> Desarrollador backend orientado a construir</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> APIs reales con foco en lógica de negocio,</p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> Desarrollador FULLSTACK orientado a construir</p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> soluciones reales con foco en lógica de negocio,</p>
             <p class="pl-4"><span class="text-neutral-500">*</span> bases de datos y sistemas escalables.</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> Estudiante de programación en UTN Argentina.</p>
-            <p class="pl-4"><span class="text-neutral-500">*</span> Uso IA (LLMs, copilots) en mi flujo diario.</p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> Tecnico Universitario en Programación | UTN
+              Argentina</p>
+            <p class="pl-4"><span class="text-neutral-500">*</span> Desarrollo con apoyo de IA (LLMs, agentes & skills)
+              en mi flujo diario.</p>
             <p class="text-neutral-500">*/</p>
           </div>
         </div>
@@ -193,7 +196,8 @@
             class="font-headline font-black text-5xl md:text-9xl tracking-tighter text-on-surface/10 group-hover:text-primary/20 transition-all duration-500 absolute -bottom-4 -right-4"
             aria-hidden="true">NODE</h3>
           <div class="relative z-10">
-            <p class="font-headline font-bold text-3xl md:text-4xl group-hover:translate-x-2 transition-transform">NODE.JS
+            <p class="font-headline font-bold text-3xl md:text-4xl group-hover:translate-x-2 transition-transform">
+              NODE.JS
             </p>
             <p class="font-mono text-[10px] text-neutral-500 mt-4 leading-relaxed">Express, APIs REST, middleware,
               autenticación JWT. El core de todo lo que construyo.</p>
@@ -267,52 +271,16 @@
     </div>
     <div class="flex gap-8">
       <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
-        href="#" aria-label="GitHub">GITHUB</a>
+        href="https://github.com/ivoans" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GITHUB</a>
       <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
-        href="#" aria-label="LinkedIn">LINKEDIN</a>
+        href="https://www.linkedin.com/in/ivo-ansorena-693a40322/" target="_blank" rel="noopener noreferrer"
+        aria-label="LinkedIn">LINKEDIN</a>
       <a class="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-primary transition-colors"
         href="#" aria-label="ReadCV">READCV</a>
     </div>
   </footer>
 
-  <script>
-    // Mobile menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuCloseBtn = document.getElementById('menu-close');
-
-    function openMenu() {
-      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-      mobileMenu.classList.add('opacity-100');
-      mobileMenu.setAttribute('aria-hidden', 'false');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-      menuCloseBtn.focus();
-    }
-    function closeMenu() {
-      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-      mobileMenu.classList.remove('opacity-100');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-      menuToggle.focus();
-    }
-    menuToggle?.addEventListener('click', openMenu);
-    menuCloseBtn?.addEventListener('click', closeMenu);
-    mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu?.getAttribute('aria-hidden') === 'false') closeMenu(); });
-
-    // Scroll animations
-    const fadeObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
-  </script>
+  <script src="js/main.js" defer></script>
 </body>
 
 </html>
