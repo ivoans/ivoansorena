@@ -1,0 +1,118 @@
+---
+import '../styles/global.css';
+
+import { useTranslations } from '../i18n';
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const t = useTranslations(Astro.currentLocale);
+const { title, description } = Astro.props;
+
+/** Solo en `astro dev`: con ?audit en la URL deja un informe de desbordes y
+ *  objetivos táctiles chicos en el DOM, legible con `chrome --dump-dom`. */
+const AUDIT_JS = `if (new URL(location.href).searchParams.has('audit')) {
+  var sc = new URL(location.href).searchParams.get('scroll');
+  if (sc) window.scrollTo(0, Number(sc));
+  document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('is-revealed'); });
+  var doc = document.documentElement, vw = doc.clientWidth, out = [], seen = {};
+  out.push('viewport=' + vw + ' scrollWidth=' + doc.scrollWidth + ' docHeight=' + doc.scrollHeight);
+  if (doc.scrollWidth > vw) out.push('OVERFLOW +' + (doc.scrollWidth - vw) + 'px');
+  var all = document.querySelectorAll('body *');
+  for (var i = 0; i < all.length; i++) {
+    var el = all[i], r = el.getBoundingClientRect();
+    if (!r.width || !r.height) continue;
+    var cs = getComputedStyle(el);
+    if (cs.position === 'fixed' || cs.visibility === 'hidden') continue;
+    if (r.right > vw + 1 || r.left < -1) {
+      var cls = typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\\s+/).slice(0, 2).join('.') : '';
+      var id = el.tagName.toLowerCase() + cls;
+      if (seen[id]) continue;
+      seen[id] = 1;
+      out.push('OUT ' + id + ' left=' + Math.round(r.left) + ' right=' + Math.round(r.right));
+    }
+  }
+  var hits = document.querySelectorAll('a, button, summary, [tabindex]');
+  for (var j = 0; j < hits.length; j++) {
+    var h = hits[j], hr = h.getBoundingClientRect();
+    var name = (h.textContent || '').trim() || h.getAttribute('aria-label') || '';
+    if (hr.width && hr.height && !name) out.push('SIN-NOMBRE ' + h.tagName.toLowerCase() + '.' + h.className);
+    if (hr.width && hr.height && (hr.width < 24 || hr.height < 24)) out.push('CHICO ' + h.tagName.toLowerCase() + '.' + h.className + ' ' + Math.round(hr.width) + 'x' + Math.round(hr.height));
+  }
+  var pre = document.createElement('pre');
+  pre.id = 'audit';
+  pre.textContent = out.join('\\n');
+  pre.style.cssText = 'position:absolute;left:-9999px;top:0;width:1px';
+  document.body.appendChild(pre);
+  if (window.parent !== window) window.parent.postMessage({ audit: pre.textContent }, '*');
+}`;
+---
+
+<!doctype html>
+<html lang={t.html.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link
+      rel="preload"
+      href="/fonts/outfit-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <Seo title={title} description={description} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#contenido">{t.html.skipToContent}</a>
+    <Header />
+
+    <main id="contenido">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+
+    <script is:inline>
+      // Marca que hay JS para que las animaciones de aparición solo corran ahí.
+      document.documentElement.classList.add('js');
+    </script>
+
+    <script>
+      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduced || !('IntersectionObserver' in window)) {
+        targets.forEach((el) => el.classList.add('is-revealed'));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        targets.forEach((el) => observer.observe(el));
+      }
+    </script>
+
+    {import.meta.env.DEV && <script is:inline set:html={AUDIT_JS} />}
+  </body>
+</html>

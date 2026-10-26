@@ -1,0 +1,99 @@
+---
+import { useTranslations } from '../../i18n';
+import SectionHead from '../ui/SectionHead.astro';
+import Button from '../ui/Button.astro';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="others section" id={t.otros.id}>
+  <div class="container container--wide">
+    <SectionHead eyebrow={t.otros.eyebrow} title={t.otros.title} intro={t.otros.intro} />
+
+    <ul class="others__grid">
+      {
+        t.otros.items.map((item, i) => (
+          <li class="card" id={item.id} data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            <h3 class="card__title">{item.name}</h3>
+            <p class="card__meta">{item.meta}</p>
+            <p class="card__body">{item.body}</p>
+
+            {item.stack.length > 0 && (
+              <ul class="card__chips">
+                {item.stack.map((tech) => (
+                  <li class="chip">{tech}</li>
+                ))}
+              </ul>
+            )}
+
+            {'href' in item && item.href && (
+              <div class="card__foot">
+                <Button href={item.href} external variant="outline" icon="arrowUpRight">
+                  {t.otros.visit}
+                </Button>
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .others__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(0.85rem, 1.6vw, 1.25rem);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .card {
+    display: flex;
+    scroll-margin-top: calc(var(--header-h) + 2rem);
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: clamp(1.4rem, 2.4vw, 2rem);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+  }
+
+  .card__title {
+    font-size: var(--t-h4);
+    font-weight: 400;
+    text-wrap: pretty;
+  }
+
+  .card__meta {
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+  }
+
+  .card__body {
+    margin-top: 0.4rem;
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+  }
+
+  .card__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+  }
+
+  .chip {
+    padding: 0.35em 0.8em;
+    border: 1px solid var(--line-ink);
+    border-radius: var(--r-pill);
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  /* El botón siempre al pie de la tarjeta, como en inspo/kairos-cards.png. */
+  .card__foot {
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+</style>

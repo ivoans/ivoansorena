@@ -1,0 +1,82 @@
+---
+/** Marco de celular hecho con CSS: sin imágenes ni dependencias. */
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label, class: className } = Astro.props;
+---
+
+<figure class:list={['phone', className]}>
+  <div class="phone__body">
+    <div class="phone__screen">
+      <slot />
+    </div>
+    <span class="phone__island" aria-hidden="true"></span>
+  </div>
+  {label && <figcaption class="phone__label">{label}</figcaption>}
+</figure>
+
+<style>
+  .phone {
+    margin: 0;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .phone__body {
+    position: relative;
+    padding: 9px;
+    border-radius: 42px;
+    background: linear-gradient(160deg, #3a3a3a, #1c1c1c 45%, #2e2e2e);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      var(--shadow-lg);
+  }
+
+  .phone__screen {
+    position: relative;
+    overflow: hidden;
+    border-radius: 34px;
+    background: var(--surface-hi);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+    aspect-ratio: 390 / 844;
+  }
+
+  .phone__screen :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* El espacio reservado también tiene que llenar la pantalla. El marco ya
+     delimita la zona, así que adentro no hace falta su borde punteado. */
+  .phone__screen > :global(*) {
+    width: 100%;
+    height: 100%;
+  }
+  .phone__screen :global(.ph) {
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .phone__island {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    translate: -50% 0;
+    width: 74px;
+    height: 20px;
+    border-radius: var(--r-pill);
+    background: #101010;
+  }
+
+  .phone__label {
+    margin-top: 0.85rem;
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  tone?: 'dark' | 'quiet';
+  class?: string;
+}
+const { tone = 'dark', class: className } = Astro.props;
+---
+
+<span class:list={['pill', `pill--${tone}`, className]}><slot /></span>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    border-radius: var(--r-pill);
+    padding: 0.42em 0.95em;
+    font-size: var(--t-xs);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.012em;
+    white-space: nowrap;
+  }
+  .pill--dark {
+    background: var(--pill-bg);
+    color: var(--pill-ink);
+  }
+  .pill--quiet {
+    border: 1px solid var(--line-ink);
+    color: var(--ink-soft);
+  }
+</style>

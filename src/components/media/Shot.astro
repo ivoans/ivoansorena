@@ -1,0 +1,202 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { getShot } from '../../data/proyectos';
+import { useTranslations } from '../../i18n';
+import Placeholder from './Placeholder.astro';
+import Icon from '../ui/Icon.astro';
+
+/**
+ * Una captura del proyecto. Si el PNG todavía no está en
+ * `src/assets/proyectos/`, dibuja el espacio reservado con el nombre esperado.
+ */
+interface Props {
+  name: string;
+  alt: string;
+  variant?: 'wide' | 'phone' | 'thumb';
+  zoom?: boolean;
+  priority?: boolean;
+  sizes?: string;
+  ratio?: string;
+  class?: string;
+}
+
+const {
+  name,
+  alt,
+  variant = 'wide',
+  zoom = true,
+  priority = false,
+  sizes,
+  ratio,
+  class: className,
+} = Astro.props;
+
+const t = useTranslations(Astro.currentLocale);
+const src = getShot(name);
+
+const CANDIDATES: Record<string, number[]> = {
+  wide: [480, 760, 1040, 1360, 1680],
+  phone: [260, 390, 560, 780],
+  thumb: [240, 360, 520],
+};
+const DEFAULT_SIZES: Record<string, string> = {
+  wide: '(min-width: 1100px) 1040px, (min-width: 700px) 92vw, 100vw',
+  phone: '(min-width: 700px) 280px, 46vw',
+  thumb: '(min-width: 700px) 360px, 48vw',
+};
+const DEFAULT_RATIO: Record<string, string> = {
+  wide: '16 / 10',
+  phone: '390 / 844',
+  thumb: '16 / 10',
+};
+
+// Nunca pedimos un ancho mayor al original: evita avisos de astro:assets.
+const widths = src
+  ? (() => {
+      const fit = CANDIDATES[variant]!.filter((w) => w < src.width);
+      return fit.length ? [...fit, src.width] : [src.width];
+    })()
+  : [];
+
+const full = src
+  ? await getImage({
+      src,
+      width: Math.min(src.width, 2000),
+      format: 'webp',
+      quality: 88,
+    })
+  : undefined;
+---
+
+{
+  src && full ? (
+    zoom ? (
+      <button
+        type="button"
+        class:list={['shot', `shot--${variant}`, 'shot--zoom', className]}
+        data-lb
+        data-lb-src={full.src}
+        data-lb-w={full.attributes.width ?? src.width}
+        data-lb-h={full.attributes.height ?? src.height}
+        data-lb-alt={alt}
+        aria-label={`${t.media.zoom}: ${alt}`}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          widths={widths}
+          sizes={sizes ?? DEFAULT_SIZES[variant]}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority ? 'high' : 'auto'}
+          decoding={priority ? 'sync' : 'async'}
+        />
+        <span class="shot__zoom" aria-hidden="true">
+          <Icon name="expand" size={17} />
+        </span>
+      </button>
+    ) : (
+      <div class:list={['shot', `shot--${variant}`, className]}>
+        <Image
+          src={src}
+          alt={alt}
+          widths={widths}
+          sizes={sizes ?? DEFAULT_SIZES[variant]}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding={priority ? 'sync' : 'async'}
+        />
+      </div>
+    )
+  ) : (
+    <div class:list={['shot', `shot--${variant}`, 'shot--empty', className]}>
+      <Placeholder
+        name={name}
+        ratio={ratio ?? DEFAULT_RATIO[variant]}
+        compact={variant !== 'wide'}
+      />
+    </div>
+  )
+}
+
+<style>
+  /* Las capturas del sistema contable tienen un fondo parecido al del sitio:
+     el borde fino y la sombra son los que las despegan. */
+  .shot {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0;
+    border-radius: var(--r-xl);
+    background: var(--surface-hi);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px var(--line-ink),
+      var(--shadow-md);
+  }
+
+  .shot :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .shot--phone {
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+  }
+
+  .shot--thumb {
+    border-radius: var(--r-md);
+    box-shadow:
+      0 0 0 1px var(--line-ink),
+      var(--shadow-sm);
+  }
+
+  .shot--empty {
+    background: none;
+    box-shadow: none;
+  }
+
+  .shot--zoom {
+    cursor: zoom-in;
+    transition:
+      box-shadow var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease);
+  }
+  .shot--zoom:hover {
+    box-shadow:
+      0 0 0 1px var(--line-ink-strong),
+      var(--shadow-lg);
+  }
+
+  .shot__zoom {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--btn-bg) 86%, transparent);
+    color: var(--btn-ink);
+    opacity: 0;
+    transform: translateY(5px);
+    transition:
+      opacity var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease);
+  }
+  .shot--zoom:hover .shot__zoom,
+  .shot--zoom:focus-visible .shot__zoom {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* En pantallas táctiles no hay hover: el botón queda siempre visible. */
+  @media (hover: none) {
+    .shot__zoom {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+/** Tarjeta de número al estilo kairos-stats: leyenda arriba, número grande abajo,
+ *  línea fina y texto chico al pie. */
+interface Props {
+  eyebrow: string;
+  value: string;
+  caption: string;
+}
+const { eyebrow, value, caption } = Astro.props;
+---
+
+<div class="stat">
+  <p class="stat__eyebrow">{eyebrow}</p>
+  <div class="stat__body">
+    <p class="stat__value">{value}</p>
+    <hr class="stat__rule" />
+    <p class="stat__caption">{caption}</p>
+  </div>
+</div>
+
+<style>
+  .stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(2rem, 6vw, 4.5rem);
+    min-height: clamp(170px, 20vw, 250px);
+    padding: clamp(1.1rem, 2vw, 1.6rem);
+    border: 1px solid var(--line-ink-strong);
+    border-radius: var(--r-lg);
+  }
+
+  .stat__eyebrow {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 0.97rem + 0.36vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.2;
+  }
+
+  .stat__value {
+    font-family: var(--font-display);
+    font-size: var(--t-stat);
+    font-weight: 250;
+    line-height: 0.95;
+    letter-spacing: var(--ls-display);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  .stat__rule {
+    border: 0;
+    border-top: 1px solid var(--line-ink-strong);
+    margin: 0.5rem 0 0.45rem;
+  }
+
+  .stat__caption {
+    font-size: var(--t-xs);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+</style>

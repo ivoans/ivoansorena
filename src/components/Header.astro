@@ -1,0 +1,238 @@
+---
+import { SITE, ANCHORS } from '../config';
+import { useTranslations } from '../i18n';
+import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<div id="header-sentinel" aria-hidden="true"></div>
+
+<header class="header" data-header>
+  <div class="container container--wide header__inner">
+    <a class="header__brand" href={`#${ANCHORS.inicio}`}>{t.nav.brand}</a>
+
+    <nav class="header__nav" aria-label={t.nav.menuLabel}>
+      <ul class="header__list">
+        {
+          t.nav.links.map((link) => (
+            <li>
+              <a class="header__link" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <Button href={SITE.cv} download icon="download" class="header__cv">{t.nav.cv}</Button>
+
+      <button
+        class="header__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="header-menu"
+        data-menu-toggle
+      >
+        <Icon name="menu" size={22} />
+        <span class="visually-hidden" data-menu-label>{t.nav.openMenu}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="header__panel" id="header-menu" hidden data-menu-panel>
+    <ul class="header__panel-list">
+      {
+        t.nav.links.map((link) => (
+          <li>
+            <a href={link.href} data-menu-close>
+              {link.label}
+              <Icon name="arrowRight" size={20} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <Button href={SITE.cv} download icon="download" size="lg" class="header__panel-cv">
+      {t.nav.cv}
+    </Button>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const sentinel = document.getElementById('header-sentinel');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+  const labels = { open: 'Abrir menú', close: 'Cerrar menú' };
+
+  if (label) labels.open = label.textContent ?? labels.open;
+
+  // Fondo del encabezado solo cuando se bajó del inicio.
+  if (header && sentinel && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      ([entry]) => header.classList.toggle('is-stuck', !entry!.isIntersecting),
+      { rootMargin: '0px' },
+    ).observe(sentinel);
+  }
+
+  function setMenu(open: boolean) {
+    if (!toggle || !panel) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.hidden = !open;
+    header?.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (label) label.textContent = open ? labels.close : labels.open;
+  }
+
+  toggle?.addEventListener('click', () => {
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  panel?.querySelectorAll('[data-menu-close]').forEach((el) => {
+    el.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      toggle.focus();
+    }
+  });
+
+  // Si se agranda la ventana, el panel mobile no tiene que quedar abierto.
+  window.matchMedia('(min-width: 860px)').addEventListener('change', (event) => {
+    if (event.matches) setMenu(false);
+  });
+</script>
+
+<style>
+  #header-sentinel {
+    position: absolute;
+    top: 0;
+    height: 1px;
+    width: 100%;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
+    transition: background-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  }
+
+  .header.is-stuck,
+  .header.is-open {
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2);
+    box-shadow: 0 1px 0 var(--line-ink);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: var(--header-h);
+  }
+
+  .header__brand {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__list {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .header__link {
+    display: block;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--r-pill);
+    font-size: var(--t-sm);
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .header__link:hover {
+    color: var(--ink);
+    background: rgba(11, 53, 48, 0.07);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header__cv {
+    display: none;
+  }
+
+  .header__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--r-pill);
+    color: var(--ink);
+  }
+  .header__toggle:hover {
+    background: rgba(11, 53, 48, 0.07);
+  }
+
+  .header__panel {
+    border-top: 1px solid var(--line-ink);
+    padding: 1rem var(--gutter) 1.75rem;
+  }
+  .header__panel[hidden] {
+    display: none;
+  }
+
+  .header__panel-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 0.25rem;
+    border-bottom: 1px solid var(--line-ink);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-decoration: none;
+  }
+
+  .header__panel-cv {
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+
+  @media (min-width: 860px) {
+    .header__nav {
+      display: block;
+    }
+    /* inline-flex, no block: si no, el ícono del botón cae abajo del texto. */
+    .header__cv {
+      display: inline-flex;
+    }
+    .header__toggle,
+    .header__panel {
+      display: none;
+    }
+  }
+</style>

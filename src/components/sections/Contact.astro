@@ -1,0 +1,68 @@
+---
+import { SITE } from '../../config';
+import { useTranslations } from '../../i18n';
+import Button from '../ui/Button.astro';
+import Footer from '../Footer.astro';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<footer class="contact" id={t.contact.id}>
+  <div class="container container--wide">
+    <div class="contact__card">
+      <h2 class="contact__title" data-reveal>{t.contact.title}</h2>
+      <p class="contact__body" data-reveal style="--reveal-delay:80ms">{t.contact.body}</p>
+
+      <div class="contact__actions" data-reveal style="--reveal-delay:140ms">
+        <Button href={`mailto:${SITE.email}`} size="lg" icon="mail" iconPosition="start">
+          {t.contact.mail}
+        </Button>
+        <Button href={SITE.linkedin} external variant="outline" size="lg" icon="linkedin" iconPosition="start">
+          {t.contact.linkedin}
+        </Button>
+        <Button href={SITE.github} external variant="outline" size="lg" icon="github" iconPosition="start">
+          {t.contact.github}
+        </Button>
+        <Button href={SITE.cv} download variant="outline" size="lg" icon="download" iconPosition="start">
+          {t.contact.cv}
+        </Button>
+      </div>
+
+      <Footer />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .contact {
+    padding-block: clamp(2rem, 4vw, 4rem) clamp(1rem, 2vw, 2rem);
+  }
+
+  .contact__card {
+    padding: clamp(2rem, 4.5vw, 4.5rem) clamp(1.4rem, 3.5vw, 3.5rem) clamp(1.75rem, 3vw, 2.5rem);
+    border-radius: var(--r-xl);
+    background: var(--surface);
+  }
+
+  .contact__title {
+    font-size: var(--t-display);
+    font-weight: 250;
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+    max-width: 14ch;
+  }
+
+  .contact__body {
+    margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+    max-width: 52ch;
+    font-size: var(--t-lead);
+    color: var(--ink-soft);
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+</style>

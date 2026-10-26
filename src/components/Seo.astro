@@ -1,0 +1,63 @@
+---
+import { SITE } from '../config';
+import { useTranslations } from '../i18n';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const t = useTranslations(Astro.currentLocale);
+const { title = t.meta.title, description = t.meta.description } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url).href;
+const ogImage = new URL(SITE.ogImage, SITE.url).href;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.author,
+  url: SITE.url,
+  email: `mailto:${SITE.email}`,
+  jobTitle: t.hero.role,
+  description: t.meta.description,
+  image: ogImage,
+  sameAs: [SITE.github, SITE.linkedin],
+  knowsLanguage: ['es-AR', 'en'],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Bahía Blanca',
+    addressRegion: 'Buenos Aires',
+    addressCountry: 'AR',
+  },
+  knowsAbout: ['Node.js', 'TypeScript', 'React', 'PostgreSQL', 'Astro', 'Express'],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content={SITE.author} />
+<meta property="og:locale" content={t.html.locale} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={t.meta.ogImageAlt} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={t.meta.ogImageAlt} />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta name="theme-color" content="#ebe9e4" />
+
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} is:inline />

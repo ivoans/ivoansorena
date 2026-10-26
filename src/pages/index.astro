@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { useTranslations } from '../i18n';
+import Hero from '../components/sections/Hero.astro';
+import ProjectIndex from '../components/sections/ProjectIndex.astro';
+import CaseStudy from '../components/sections/CaseStudy.astro';
+import OtherProjects from '../components/sections/OtherProjects.astro';
+import About from '../components/sections/About.astro';
+import Contact from '../components/sections/Contact.astro';
+import Lightbox from '../components/media/Lightbox.astro';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<Base>
+  <Hero />
+  <ProjectIndex />
+  <CaseStudy project={t.contable} index={0} />
+  <CaseStudy project={t.forja} index={1} />
+  <OtherProjects />
+  <About />
+  <Contact slot="footer" />
+  <Lightbox />
+</Base>

@@ -1,0 +1,122 @@
+---
+import Shot from '../media/Shot.astro';
+import PhoneFrame from '../media/PhoneFrame.astro';
+
+interface ShotRef {
+  readonly key: string;
+  readonly alt: string;
+}
+interface PhoneRef extends ShotRef {
+  readonly label?: string;
+}
+
+interface Props {
+  index: number;
+  title: string;
+  body: string;
+  shots: readonly ShotRef[];
+  phoneShots: readonly PhoneRef[];
+}
+
+// Arriba del pliegue no hay ninguna imagen (el inicio es solo tipografía),
+// así que todas las capturas se cargan en diferido.
+const { index, title, body, shots, phoneShots } = Astro.props;
+const onlyPhones = shots.length === 0 && phoneShots.length > 0;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<li class:list={['feat', onlyPhones && 'feat--phones']} data-reveal>
+  <div class="feat__text">
+    <p class="feat__num" aria-hidden="true">{num}</p>
+    <h3 class="feat__title">{title}</h3>
+    <p class="feat__body">{body}</p>
+  </div>
+
+  <div class="feat__media">
+    {
+      shots.map((shot) => (
+        <Shot
+          name={shot.key}
+          alt={shot.alt}
+          variant="wide"
+          sizes="(min-width: 1180px) 780px, (min-width: 980px) 58vw, (min-width: 700px) 86vw, 92vw"
+        />
+      ))
+    }
+
+    {
+      phoneShots.length > 0 && (
+        <div class="feat__phones">
+          {phoneShots.map((phone) => (
+            <PhoneFrame label={phone.label}>
+              <Shot name={phone.key} alt={phone.alt} variant="phone" sizes="260px" />
+            </PhoneFrame>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</li>
+
+<style>
+  .feat {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding-top: clamp(2.5rem, 4.5vw, 4rem);
+    border-top: 1px solid var(--line-ink);
+  }
+
+  .feat__num {
+    font-family: var(--font-display);
+    font-size: var(--t-sm);
+    font-weight: 400;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.6rem;
+  }
+
+  .feat__title {
+    font-size: var(--t-h4);
+    font-weight: 400;
+  }
+
+  .feat__body {
+    margin-top: 0.75rem;
+    color: var(--ink-soft);
+    max-width: 48ch;
+  }
+
+  .feat__media {
+    display: grid;
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    align-content: start;
+  }
+
+  .feat__phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    justify-content: center;
+  }
+
+  @media (min-width: 980px) {
+    .feat {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr);
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: start;
+    }
+
+    .feat__text {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+
+    /* Cuando solo hay celulares, el texto respira más y los marcos se centran. */
+    .feat--phones {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    }
+    .feat--phones .feat__phones {
+      justify-content: flex-start;
+    }
+  }
+</style>

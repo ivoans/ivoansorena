@@ -1,0 +1,46 @@
+---
+import Pill from './Pill.astro';
+
+/** Encabezado de sección: etiqueta, título grande, línea fina y texto en la
+ *  columna derecha, como en `inspo/kairos-section.png`. */
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  class?: string;
+}
+const { eyebrow, title, intro, class: className } = Astro.props;
+---
+
+<header class:list={['sh', className]}>
+  <Pill>{eyebrow}</Pill>
+  <h2 class="sh__title">{title}</h2>
+  <hr class="rule sh__rule" />
+  {intro && <p class="sh__intro">{intro}</p>}
+</header>
+
+<style>
+  .sh__title {
+    margin-top: 1.1rem;
+    font-size: var(--t-h2);
+    font-weight: 250;
+    max-width: 18ch;
+  }
+
+  .sh__rule {
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .sh__intro {
+    margin-top: 1.25rem;
+    max-width: 52ch;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 1000px) {
+    .sh__intro {
+      margin-left: auto;
+      width: 50%;
+    }
+  }
+</style>

@@ -1,0 +1,254 @@
+---
+import { ANCHORS } from '../../config';
+import { useTranslations } from '../../i18n';
+import { INDEX_THUMBS } from '../../data/proyectos';
+import Shot from '../media/Shot.astro';
+import Pill from '../ui/Pill.astro';
+
+const t = useTranslations(Astro.currentLocale);
+const items = t.projectIndex.items;
+---
+
+<section class="idx section" id={ANCHORS.proyectos}>
+  <div class="container container--wide">
+    <header class="idx__head">
+      <Pill>{t.projectIndex.eyebrow}</Pill>
+      <h2 class="idx__title">{t.projectIndex.title}</h2>
+      <hr class="rule idx__rule" />
+      <p class="idx__intro">{t.projectIndex.intro}</p>
+    </header>
+
+    <div class="idx__body">
+      <ul class="idx__list" data-idx-list>
+        {
+          items.map((item, i) => (
+            <li class="idx__item">
+              <a class="idx__link" href={item.href} data-idx-link data-idx-i={i}>
+                <span class="idx__name">{item.name}</span>
+                <span class="idx__meta">{item.meta}</span>
+              </a>
+
+              <div class="idx__thumb idx__thumb--inline">
+                {INDEX_THUMBS[item.id] ? (
+                  <Shot
+                    name={INDEX_THUMBS[item.id]!}
+                    alt={item.name}
+                    variant="thumb"
+                    zoom={false}
+                    sizes="(min-width: 700px) 320px, 40vw"
+                  />
+                ) : (
+                  <span class="idx__mono" aria-hidden="true">
+                    {item.name.charAt(0)}
+                  </span>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="idx__stage" aria-hidden="true">
+        {
+          items.map((item, i) => (
+            <div class="idx__card" data-idx-card data-idx-i={i}>
+              {INDEX_THUMBS[item.id] ? (
+                <Shot
+                  name={INDEX_THUMBS[item.id]!}
+                  alt=""
+                  variant="thumb"
+                  zoom={false}
+                  sizes="380px"
+                />
+              ) : (
+                <span class="idx__mono idx__mono--lg">{item.name.charAt(0)}</span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="idx__hint">{t.projectIndex.hint}</p>
+  </div>
+</section>
+
+<script>
+  // Solo en escritorio con puntero fino: en celular la lista ya muestra la miniatura.
+  const list = document.querySelector<HTMLElement>('[data-idx-list]');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-idx-card]'));
+  const links = Array.from(document.querySelectorAll<HTMLElement>('[data-idx-link]'));
+  const fine = window.matchMedia('(min-width: 1000px) and (hover: hover)');
+
+  let active = -1;
+  function setActive(next: number) {
+    if (next === active) return;
+    active = next;
+    links.forEach((el, i) => el.classList.toggle('is-active', i === next));
+    cards.forEach((el, i) => el.classList.toggle('is-active', i === next));
+    list?.classList.toggle('has-active', next >= 0);
+  }
+
+  // En escritorio siempre hay uno activo (arranca el primero) para que el
+  // espacio de la miniatura no quede vacío, como en la referencia.
+  const resting = () => (fine.matches ? 0 : -1);
+
+  if (list && cards.length) {
+    links.forEach((link, i) => {
+      link.addEventListener('pointerenter', () => fine.matches && setActive(i));
+      link.addEventListener('focus', () => fine.matches && setActive(i));
+    });
+    list.addEventListener('pointerleave', () => setActive(resting()));
+    list.addEventListener('focusout', (event) => {
+      if (!list.contains(event.relatedTarget as Node)) setActive(resting());
+    });
+
+    setActive(resting());
+    fine.addEventListener('change', () => setActive(resting()));
+  }
+</script>
+
+<style>
+  .idx__head {
+    max-width: var(--w-page);
+  }
+
+  .idx__title {
+    margin-top: 1rem;
+    font-size: var(--t-h2);
+    font-weight: 250;
+  }
+
+  .idx__rule {
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .idx__intro {
+    margin-top: 1.25rem;
+    max-width: 52ch;
+    color: var(--ink-soft);
+  }
+
+  .idx__body {
+    position: relative;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .idx__item {
+    border-bottom: 1px solid var(--line-ink);
+  }
+  .idx__item:first-child {
+    border-top: 1px solid var(--line-ink);
+  }
+
+  .idx__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: clamp(0.9rem, 1.8vw, 1.4rem) 0;
+    text-decoration: none;
+  }
+
+  .idx__name {
+    font-family: var(--font-display);
+    font-size: var(--t-index);
+    font-weight: 250;
+    line-height: 1.04;
+    letter-spacing: var(--ls-display);
+    color: var(--ink);
+    transition: color var(--dur-fast) var(--ease);
+  }
+
+  .idx__meta {
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+  }
+
+  /* Miniatura dentro de la fila: es la versión de celular y tablet. */
+  .idx__thumb--inline {
+    padding-bottom: 1.1rem;
+    max-width: 240px;
+  }
+
+  .idx__mono {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r-md);
+    background: var(--surface);
+    box-shadow: 0 0 0 1px var(--line-ink);
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 250;
+    color: var(--ink-faint);
+  }
+  .idx__mono--lg {
+    font-size: 4rem;
+  }
+
+  .idx__stage {
+    display: none;
+  }
+
+  .idx__hint {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 1000px) and (hover: hover) {
+    .idx__thumb--inline {
+      display: none;
+    }
+
+    .idx__list {
+      /* Deja libre la mitad derecha para la miniatura flotante. */
+      max-width: 58%;
+    }
+
+    /* Los nombres arrancan en gris y se encienden al pasar el mouse o al
+       recibir foco. Hasta que no hay uno activo, todos quedan en color pleno. */
+    .idx__list.has-active .idx__name {
+      color: var(--ink-faint);
+    }
+    .idx__link.is-active .idx__name {
+      color: var(--ink);
+    }
+
+    .idx__stage {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 2%;
+      translate: 0 -50%;
+      width: min(380px, 34%);
+      aspect-ratio: 16 / 10;
+      pointer-events: none;
+    }
+
+    .idx__card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      scale: 0.97;
+      transition:
+        opacity var(--dur-fast) var(--ease),
+        scale var(--dur-fast) var(--ease);
+    }
+    .idx__card.is-active {
+      opacity: 1;
+      scale: 1;
+    }
+
+    .idx__hint {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .idx__card {
+      transition: none;
+    }
+  }
+</style>

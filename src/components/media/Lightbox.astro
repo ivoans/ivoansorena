@@ -1,0 +1,218 @@
+---
+import { useTranslations } from '../../i18n';
+import Icon from '../ui/Icon.astro';
+
+/** Un único diálogo para toda la página. `<dialog>` ya trae Esc, foco atrapado
+ *  y fondo propio: el script solo cambia la imagen y navega entre capturas. */
+const t = useTranslations(Astro.currentLocale);
+---
+
+<dialog class="lb" data-lb-dialog aria-label={t.media.gallery}>
+  <div class="lb__bar">
+    <p class="lb__counter" data-lb-counter></p>
+    <button type="button" class="lb__btn" data-lb-close aria-label={t.media.close}>
+      <Icon name="close" size={20} />
+    </button>
+  </div>
+
+  <figure class="lb__figure">
+    <div class="lb__canvas">
+      <img data-lb-img alt="" />
+    </div>
+    <figcaption class="lb__caption" data-lb-caption></figcaption>
+  </figure>
+
+  <button type="button" class="lb__nav lb__nav--prev" data-lb-prev aria-label={t.media.prev}>
+    <Icon name="chevronLeft" size={24} />
+  </button>
+  <button type="button" class="lb__nav lb__nav--next" data-lb-next aria-label={t.media.next}>
+    <Icon name="chevronRight" size={24} />
+  </button>
+</dialog>
+
+<script is:inline define:vars={{ counterTemplate: t.media.counter }}>
+  (() => {
+    const dialog = document.querySelector('[data-lb-dialog]');
+    const img = document.querySelector('[data-lb-img]');
+    const caption = document.querySelector('[data-lb-caption]');
+    const counter = document.querySelector('[data-lb-counter]');
+    const triggers = Array.from(document.querySelectorAll('[data-lb]'));
+    if (!dialog || !img || triggers.length === 0) return;
+
+    let index = 0;
+
+    const show = (i) => {
+      index = (i + triggers.length) % triggers.length;
+      const el = triggers[index];
+      img.src = el.dataset.lbSrc;
+      img.width = Number(el.dataset.lbW) || 0;
+      img.height = Number(el.dataset.lbH) || 0;
+      img.alt = el.dataset.lbAlt || '';
+      if (caption) caption.textContent = el.dataset.lbAlt || '';
+      if (counter) {
+        counter.textContent = counterTemplate
+          .replace('{n}', String(index + 1))
+          .replace('{total}', String(triggers.length));
+      }
+    };
+
+    triggers.forEach((el, i) => {
+      el.addEventListener('click', () => {
+        show(i);
+        dialog.showModal();
+      });
+    });
+
+    document.querySelector('[data-lb-close]')?.addEventListener('click', () => dialog.close());
+    document.querySelector('[data-lb-prev]')?.addEventListener('click', () => show(index - 1));
+    document.querySelector('[data-lb-next]')?.addEventListener('click', () => show(index + 1));
+
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); show(index - 1); }
+    });
+
+    // Clic fuera de la figura cierra.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    // Esc lo maneja <dialog>; acá devolvemos el foco a la captura que se estaba
+    // viendo, que no siempre es la que abrió el diálogo. Va diferido: el
+    // navegador reubica el foco después del evento 'close' y pisaría esto.
+    dialog.addEventListener('close', () => {
+      img.removeAttribute('src');
+      const target = triggers[index];
+      requestAnimationFrame(() => target?.focus());
+    });
+  })();
+</script>
+
+<style>
+  .lb {
+    width: min(96vw, 1400px);
+    max-width: none;
+    max-height: 94dvh;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-lg);
+    background: var(--bg);
+    color: var(--ink);
+    overflow: visible;
+  }
+  .lb::backdrop {
+    background: rgba(8, 26, 24, 0.72);
+    backdrop-filter: blur(3px);
+  }
+  .lb:not([open]) {
+    display: none;
+  }
+
+  .lb__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.6rem 0.6rem 1.1rem;
+    border-bottom: 1px solid var(--line-ink);
+  }
+
+  .lb__counter {
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lb__btn {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-pill);
+    color: var(--ink);
+  }
+  .lb__btn:hover {
+    background: rgba(11, 53, 48, 0.08);
+  }
+
+  .lb__figure {
+    margin: 0;
+    padding: 0.9rem;
+  }
+
+  .lb__canvas {
+    display: grid;
+    place-items: center;
+  }
+
+  /* La imagen se dimensiona sola y se centra: así no quedan bandas a los
+     costados cuando el alto es lo que limita. */
+  .lb__figure img {
+    display: block;
+    margin-inline: auto;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(94dvh - 9rem);
+    border-radius: var(--r-sm);
+  }
+
+  .lb__caption {
+    padding-top: 0.75rem;
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  .lb__nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--r-pill);
+    background: var(--btn-bg);
+    color: var(--btn-ink);
+    box-shadow: var(--shadow-md);
+  }
+  .lb__nav:hover {
+    background: var(--btn-bg-hover);
+  }
+  .lb__nav--prev { left: -23px; }
+  .lb__nav--next { right: -23px; }
+
+  @media (max-width: 760px) {
+    .lb {
+      width: 100vw;
+      max-height: 100dvh;
+      height: 100dvh;
+      border-radius: 0;
+    }
+    .lb__figure {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      align-content: center;
+      height: calc(100dvh - 3.6rem);
+    }
+
+    /* En el celular una captura de escritorio achicada no se lee. Se muestra
+       a la altura completa y se puede desplazar en horizontal para recorrerla. */
+    .lb__canvas {
+      overflow: auto;
+      overscroll-behavior: contain;
+      place-items: center start;
+    }
+    .lb__figure img {
+      max-width: none;
+      max-height: none;
+      height: 100%;
+      width: auto;
+      border-radius: 0;
+    }
+    .lb__nav--prev { left: 10px; }
+    .lb__nav--next { right: 10px; }
+  }
+</style>

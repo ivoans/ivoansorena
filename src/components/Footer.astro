@@ -1,0 +1,102 @@
+---
+import { SITE, ANCHORS } from '../config';
+import { useTranslations } from '../i18n';
+import Icon from './ui/Icon.astro';
+
+const t = useTranslations(Astro.currentLocale);
+
+const socials = [
+  { label: t.footer.github, href: SITE.github, icon: 'github' as const },
+  { label: t.footer.linkedin, href: SITE.linkedin, icon: 'linkedin' as const },
+];
+---
+
+<div class="footer">
+  <hr class="rule" />
+  <div class="footer__row">
+    <p class="footer__copy">{t.footer.copyright}</p>
+
+    <ul class="footer__social">
+      {
+        socials.map((social) => (
+          <li>
+            <a href={social.href} target="_blank" rel="noopener noreferrer me">
+              <Icon name={social.icon} size={17} />
+              {social.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a class="footer__top" href={`#${ANCHORS.inicio}`}>
+      {t.footer.backToTop}
+      <Icon name="arrowUp" size={16} />
+    </a>
+  </div>
+</div>
+
+<style>
+  .footer {
+    margin-top: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  .footer__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-top: 1.5rem;
+  }
+
+  .footer__copy {
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+  }
+
+  .footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    order: 3;
+    width: 100%;
+  }
+
+  .footer__social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5rem 0.9rem 0.5rem 0.7rem;
+    border-radius: var(--r-pill);
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .footer__social a:hover {
+    color: var(--ink);
+    background: rgba(11, 53, 48, 0.07);
+  }
+
+  .footer__top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    /* Objetivo táctil de al menos 24px de alto (WCAG 2.2 AA). */
+    min-height: 32px;
+    padding-block: 0.25rem;
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .footer__top:hover { color: var(--ink); }
+
+  @media (min-width: 640px) {
+    .footer__social {
+      order: 0;
+      width: auto;
+    }
+  }
+</style>

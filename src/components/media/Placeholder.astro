@@ -1,0 +1,74 @@
+---
+import { useTranslations } from '../../i18n';
+
+/** Espacio reservado mientras falta el PNG en `src/assets/proyectos/`. */
+interface Props {
+  name: string;
+  ratio?: string;
+  compact?: boolean;
+}
+const { name, ratio = '16 / 10', compact = false } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+---
+
+<div class:list={['ph', compact && 'ph--compact']} style={`--ratio:${ratio}`}>
+  <p class="ph__title">{t.media.pending}</p>
+  <code class="ph__file">{name}.png</code>
+  {!compact && <p class="ph__hint">{t.media.pendingHint}</p>}
+</div>
+
+<style>
+  .ph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    aspect-ratio: var(--ratio);
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        transparent 0 10px,
+        rgba(11, 53, 48, 0.035) 10px 20px
+      ),
+      var(--surface);
+    border: 1px dashed var(--line-ink-strong);
+    border-radius: inherit;
+    color: var(--ink-soft);
+  }
+
+  .ph__title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .ph__file {
+    font-family: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, monospace;
+    font-size: 0.76rem;
+    padding: 0.3em 0.65em;
+    border-radius: var(--r-xs);
+    background: rgba(11, 53, 48, 0.08);
+    word-break: break-all;
+  }
+
+  .ph__hint {
+    font-size: var(--t-xs);
+    max-width: 30ch;
+  }
+
+  .ph--compact {
+    gap: 0.35rem;
+    padding: 0.6rem;
+  }
+  .ph--compact .ph__title {
+    font-size: 0.8rem;
+  }
+  .ph--compact .ph__file {
+    font-size: 0.66rem;
+  }
+</style>

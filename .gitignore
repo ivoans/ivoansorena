@@ -1,3 +1,7 @@
 node_modules/
 dist/
-.github/
+.astro/
+.vercel/
+.DS_Store
+.preview/
+*.log

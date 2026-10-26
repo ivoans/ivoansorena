@@ -1,0 +1,123 @@
+---
+import { useTranslations } from '../../i18n';
+import SectionHead from '../ui/SectionHead.astro';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="about section" id={t.about.id}>
+  <div class="container container--wide">
+    <SectionHead eyebrow={t.about.eyebrow} title={t.about.title} />
+
+    <div class="about__body">
+      <div class="about__text" data-reveal>
+        {t.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <div class="about__skills" data-reveal style="--reveal-delay:90ms">
+        <h3 class="about__label">{t.about.skillsTitle}</h3>
+
+        <dl class="about__groups">
+          {
+            t.about.skills.map((group) => (
+              <div class="about__group">
+                <dt>{group.group}</dt>
+                <dd>
+                  <ul class="about__chips">
+                    {group.items.map((item) => (
+                      <li class="chip">{item}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <h3 class="about__label about__label--languages">{t.about.languagesTitle}</h3>
+        <ul class="about__chips">
+          {t.about.languages.map((language) => <li class="chip">{language}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__body {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .about__text {
+    display: grid;
+    gap: 1.1rem;
+    max-width: 58ch;
+    font-size: var(--t-lead);
+    color: var(--ink-soft);
+  }
+
+  .about__label {
+    font-family: var(--font-body);
+    font-size: var(--t-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .about__label--languages {
+    margin-top: 2rem;
+  }
+
+  .about__groups {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .about__group {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line-ink);
+  }
+  .about__group:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .about__group dt {
+    font-size: var(--t-sm);
+    font-weight: 500;
+  }
+
+  .about__group dd {
+    margin: 0;
+  }
+
+  .about__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .chip {
+    padding: 0.38em 0.85em;
+    border: 1px solid var(--line-ink);
+    border-radius: var(--r-pill);
+    font-size: var(--t-xs);
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 900px) {
+    .about__body {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+    }
+    .about__group {
+      grid-template-columns: 10rem minmax(0, 1fr);
+      align-items: baseline;
+      gap: 0.5rem 1rem;
+    }
+  }
+</style>
