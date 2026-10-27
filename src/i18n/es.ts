@@ -59,7 +59,7 @@ export const es = {
     eyebrow: 'Proyectos',
     title: 'En qué trabajé',
     intro:
-      'Dos sistemas propios en producción y tres proyectos más. Las capturas son la prueba: los repositorios son privados.',
+      'Dos sistemas en producción y tres proyectos más. Los repositorios son privados, así que acá muestro cómo se ven por dentro.',
     hint: 'Elegí un proyecto para ver el caso completo',
     items: [
       { id: 'contable', name: 'Gestión Contable', meta: 'Cliente real · +200 usuarios', href: `#${ANCHORS.contable}` },
