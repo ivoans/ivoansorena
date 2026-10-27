@@ -62,3 +62,28 @@ export const INDEX_THUMBS: Record<string, string | undefined> = {
   landing: undefined,
   turnos: undefined,
 };
+
+/**
+ * Zona de la captura que muestran las miniaturas, en fracciones del original.
+ * El recuadro mantiene la proporción de la imagen, así que alcanza con el ancho.
+ */
+export interface ShotCrop {
+  readonly left: number;
+  readonly top: number;
+  readonly width: number;
+}
+
+// Las pantallas de escritorio de Forja tienen el contenido en una columna
+// central: este encuadre saca los márgenes vacíos y el menú.
+const FORJA_CONTENT: ShotCrop = { left: 0.15, top: 0.12, width: 0.7 };
+
+/** Sin encuadre, la miniatura muestra la captura entera. */
+export const SHOT_CROPS: Record<string, ShotCrop | undefined> = {
+  'forja-resumen-gimnasio': FORJA_CONTENT,
+  'forja-alumnos': FORJA_CONTENT,
+  'forja-actividad': FORJA_CONTENT,
+  'forja-progreso-ejercicios': FORJA_CONTENT,
+  'forja-progreso-cuerpo': FORJA_CONTENT,
+  'forja-cuotas': FORJA_CONTENT,
+  'forja-pagos': { left: 0.3, top: 0.3, width: 0.4 },
+};

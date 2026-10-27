@@ -1,6 +1,6 @@
 ---
 import { Picture, getImage } from 'astro:assets';
-import { getShot } from '../../data/proyectos';
+import { SHOT_CROPS, getShot } from '../../data/proyectos';
 import { useTranslations } from '../../i18n';
 import Placeholder from './Placeholder.astro';
 import Icon from '../ui/Icon.astro';
@@ -37,9 +37,9 @@ const src = getShot(name);
 const CANDIDATES: Record<string, number[]> = {
   wide: [480, 760, 1040, 1360, 1680],
   phone: [260, 390, 560, 780],
-  thumb: [240, 360, 520, 800, 1040],
+  thumb: [240, 360, 520, 800, 1040, 1440],
 };
-const DEFAULT_SIZES: Record<string, string> = {
+const DEFAULT_SIZES: Record<NonNullable<Props['variant']>, string> = {
   wide: '(min-width: 1100px) 1040px, (min-width: 700px) 92vw, 100vw',
   phone: '(min-width: 700px) 280px, 46vw',
   thumb: '(min-width: 700px) 360px, 48vw',
@@ -62,6 +62,31 @@ const widths = src
     })()
   : [];
 
+// En las miniaturas, una pantalla entera achicada no se lee: se amplía la zona
+// de interés y el zoom sigue mostrando la captura completa.
+const crop = variant === 'thumb' ? SHOT_CROPS[name] : undefined;
+const cropScale = crop ? 1 / crop.width : 1;
+const cropStyle =
+  crop && src
+    ? `--crop-left: ${crop.left}; --crop-top: ${crop.top}; --crop-scale: ${cropScale}; aspect-ratio: ${src.width} / ${src.height};`
+    : undefined;
+
+// La imagen ampliada se dibuja más grande que su recuadro: `sizes` tiene que
+// reflejarlo para que el navegador pida la resolución que corresponde.
+function scaleSizes(value: string, factor: number): string {
+  if (factor === 1) return value;
+  return value
+    .split(',')
+    .map((entry) => {
+      const match = entry.trim().match(/^(\(.+\))\s+(.+)$/);
+      return match
+        ? `${match[1]} calc(${match[2]} * ${factor})`
+        : `calc(${entry.trim()} * ${factor})`;
+    })
+    .join(', ');
+}
+const resolvedSizes = scaleSizes(sizes ?? DEFAULT_SIZES[variant], cropScale);
+
 const full = src
   ? await getImage({
       src,
@@ -77,7 +102,8 @@ const full = src
     zoom ? (
       <button
         type="button"
-        class:list={['shot', `shot--${variant}`, 'shot--zoom', className]}
+        class:list={['shot', `shot--${variant}`, 'shot--zoom', crop && 'shot--crop', className]}
+        style={cropStyle}
         data-lb
         data-lb-src={full.src}
         data-lb-w={full.attributes.width ?? src.width}
@@ -91,7 +117,7 @@ const full = src
           formats={['avif', 'webp']}
           fallbackFormat="webp"
           widths={widths}
-          sizes={sizes ?? DEFAULT_SIZES[variant]}
+          sizes={resolvedSizes}
           quality={SHOT_QUALITY}
           loading={priority ? 'eager' : 'lazy'}
           fetchpriority={priority ? 'high' : 'auto'}
@@ -102,14 +128,17 @@ const full = src
         </span>
       </button>
     ) : (
-      <div class:list={['shot', `shot--${variant}`, className]}>
+      <div
+        class:list={['shot', `shot--${variant}`, crop && 'shot--crop', className]}
+        style={cropStyle}
+      >
         <Picture
           src={src}
           alt={alt}
           formats={['avif', 'webp']}
           fallbackFormat="webp"
           widths={widths}
-          sizes={sizes ?? DEFAULT_SIZES[variant]}
+          sizes={resolvedSizes}
           quality={SHOT_QUALITY}
           loading={priority ? 'eager' : 'lazy'}
           decoding={priority ? 'sync' : 'async'}
@@ -167,6 +196,14 @@ const full = src
     box-shadow:
       0 0 0 1px var(--line-ink),
       var(--shadow-sm);
+  }
+
+  /* El recuadro conserva la proporción de la captura y la imagen, ampliada,
+     se corre hasta la zona elegida. `translate` en % es relativo a la imagen. */
+  .shot--crop :global(img) {
+    width: calc(100% * var(--crop-scale));
+    max-width: none;
+    translate: calc(var(--crop-left) * -100%) calc(var(--crop-top) * -100%);
   }
 
   .shot--empty {
