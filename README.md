@@ -4,14 +4,15 @@ Portfolio de Ivo Ansorena Pereira. Astro 7 + TypeScript, sitio estático, sin fr
 
 ## Correr el proyecto
 
-Necesita **Node 22.23.4 o superior** (está en `.nvmrc`).
+Necesita **Node 22.23.4 o superior** (está en `.nvmrc`) y **pnpm** (versión fijada
+en `packageManager` de `package.json`).
 
 ```bash
-nvm use           # o: nvm install
-npm install
-npm run dev       # http://localhost:4321
-npm run build     # astro check + build de producción, sale en dist/
-npm run preview   # sirve dist/ para revisar el build
+nvm use            # o: nvm install
+pnpm install
+pnpm dev           # http://localhost:4321
+pnpm build         # astro check + build de producción, sale en dist/
+pnpm preview       # sirve dist/ para revisar el build
 ```
 
 ## Agregar las capturas
@@ -63,6 +64,9 @@ src/
   pages/index.astro      la única página
   pages/og.png.ts        genera /og.png (1200×630) en el build
   components/
+    Header.astro         encabezado fijo y menú de celular
+    Footer.astro         pie
+    Seo.astro            title, description, canonical, Open Graph, JSON-LD
     ui/                  Button, Pill, StatCard, SectionHead, Icon
     media/               Shot, Placeholder, PhoneFrame, Lightbox
     sections/            Hero, ProjectIndex, CaseStudy, Feature,
@@ -82,5 +86,10 @@ El idioma por defecto (`es`) no lleva prefijo: queda en `/`, el inglés en `/en/
 
 - `src/assets/fonts/Outfit-Variable.ttf` lo usa solo `og.png.ts` en el build;
   no se sirve al navegador. Las fuentes del sitio están en `public/fonts/`.
-- El repo vive en `/mnt/c` (WSL), por eso `astro.config.mjs` activa el watcher
-  por sondeo: sin eso el recargado en caliente no detecta los cambios.
+- `astro.config.mjs` activa el watcher por sondeo porque el repo vivía en `/mnt/c`
+  (WSL), donde inotify no da eventos. Ahora está en el sistema de archivos de Linux,
+  así que se puede sacar.
+- `inspo/` (referencias visuales del brief) es local y está en `.gitignore`: son
+  capturas de sitios de terceros y no van al repo.
+- Con `pnpm dev`, abrir la página con `?audit` deja un informe de desbordes y
+  objetivos táctiles chicos.
