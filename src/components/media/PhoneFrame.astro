@@ -34,11 +34,14 @@ const { label, class: className } = Astro.props;
       var(--shadow-lg);
   }
 
+  /* The captures have no status bar, so the top padding stands in for it:
+     without it the island covers the app's header. */
   .phone__screen {
     position: relative;
     overflow: hidden;
+    padding-top: 40px;
     border-radius: 34px;
-    background: var(--surface-hi);
+    background: #101010;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
     aspect-ratio: 390 / 844;
   }
