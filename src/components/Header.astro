@@ -36,6 +36,8 @@ const t = useTranslations(Astro.currentLocale);
         aria-expanded="false"
         aria-controls="header-menu"
         data-menu-toggle
+        data-label-open={t.nav.openMenu}
+        data-label-close={t.nav.closeMenu}
       >
         <Icon name="menu" size={22} />
         <span class="visually-hidden" data-menu-label>{t.nav.openMenu}</span>
@@ -68,9 +70,10 @@ const t = useTranslations(Astro.currentLocale);
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
   const label = document.querySelector<HTMLElement>('[data-menu-label]');
-  const labels = { open: 'Abrir menú', close: 'Cerrar menú' };
-
-  if (label) labels.open = label.textContent ?? labels.open;
+  const labels = {
+    open: toggle?.dataset.labelOpen ?? '',
+    close: toggle?.dataset.labelClose ?? '',
+  };
 
   // Fondo del encabezado solo cuando se bajó del inicio.
   if (header && sentinel && 'IntersectionObserver' in window) {

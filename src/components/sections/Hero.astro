@@ -24,10 +24,10 @@ const t = useTranslations(Astro.currentLocale);
         </Button>
 
         <div class="hero__socials">
-          <a href={SITE.github} target="_blank" rel="noopener noreferrer me" aria-label="GitHub">
+          <a href={SITE.github} target="_blank" rel="noopener noreferrer me" aria-label={t.contact.github}>
             <Icon name="github" size={19} />
           </a>
-          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn">
+          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer me" aria-label={t.contact.linkedin}>
             <Icon name="linkedin" size={19} />
           </a>
         </div>
