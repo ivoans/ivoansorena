@@ -79,6 +79,8 @@ const FORJA_CONTENT: ShotCrop = { left: 0.15, top: 0.12, width: 0.7 };
 
 /** Sin encuadre, la miniatura muestra la captura entera. */
 export const SHOT_CROPS: Record<string, ShotCrop | undefined> = {
+  // Sin el menú lateral: quedan los indicadores y la tabla de clientes.
+  'contable-clientes': { left: 0.165, top: 0.08, width: 0.8 },
   'forja-resumen-gimnasio': FORJA_CONTENT,
   'forja-alumnos': FORJA_CONTENT,
   'forja-actividad': FORJA_CONTENT,
