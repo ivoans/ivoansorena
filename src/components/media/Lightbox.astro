@@ -198,18 +198,19 @@ const t = useTranslations(Astro.currentLocale);
       height: calc(100dvh - 3.6rem);
     }
 
-    /* En el celular una captura de escritorio achicada no se lee. Se muestra
-       a la altura completa y se puede desplazar en horizontal para recorrerla. */
+    /* En el celular la captura entra a lo ancho y, si es más alta que la
+       pantalla, se desplaza en vertical. Para leer detalles queda el zoom con
+       dos dedos del navegador. El margen automático la centra sin cortarle
+       la parte de arriba cuando desborda, cosa que `place-items: center` sí hace. */
     .lb__canvas {
-      overflow: auto;
+      overflow-y: auto;
       overscroll-behavior: contain;
-      place-items: center start;
+      place-items: start center;
     }
     .lb__figure img {
-      max-width: none;
+      width: 100%;
       max-height: none;
-      height: 100%;
-      width: auto;
+      margin: auto;
       border-radius: 0;
     }
     .lb__nav--prev { left: 10px; }
