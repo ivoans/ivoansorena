@@ -50,6 +50,10 @@ const DEFAULT_RATIO: Record<string, string> = {
   thumb: '16 / 10',
 };
 
+// Las capturas son texto chico sobre fondo oscuro: con la calidad por defecto
+// los bordes de las letras de color se ensucian.
+const SHOT_QUALITY = 90;
+
 // Nunca pedimos un ancho mayor al original: evita avisos de astro:assets.
 const widths = src
   ? (() => {
@@ -86,6 +90,7 @@ const full = src
           alt={alt}
           widths={widths}
           sizes={sizes ?? DEFAULT_SIZES[variant]}
+          quality={SHOT_QUALITY}
           loading={priority ? 'eager' : 'lazy'}
           fetchpriority={priority ? 'high' : 'auto'}
           decoding={priority ? 'sync' : 'async'}
@@ -101,6 +106,7 @@ const full = src
           alt={alt}
           widths={widths}
           sizes={sizes ?? DEFAULT_SIZES[variant]}
+          quality={SHOT_QUALITY}
           loading={priority ? 'eager' : 'lazy'}
           decoding={priority ? 'sync' : 'async'}
         />
