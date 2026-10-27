@@ -1,5 +1,5 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import { getShot } from '../../data/proyectos';
 import { useTranslations } from '../../i18n';
 import Placeholder from './Placeholder.astro';
@@ -85,9 +85,11 @@ const full = src
         data-lb-alt={alt}
         aria-label={`${t.media.zoom}: ${alt}`}
       >
-        <Image
+        <Picture
           src={src}
           alt={alt}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
           widths={widths}
           sizes={sizes ?? DEFAULT_SIZES[variant]}
           quality={SHOT_QUALITY}
@@ -101,9 +103,11 @@ const full = src
       </button>
     ) : (
       <div class:list={['shot', `shot--${variant}`, className]}>
-        <Image
+        <Picture
           src={src}
           alt={alt}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
           widths={widths}
           sizes={sizes ?? DEFAULT_SIZES[variant]}
           quality={SHOT_QUALITY}
@@ -137,6 +141,13 @@ const full = src
     box-shadow:
       0 0 0 1px var(--line-ink),
       var(--shadow-md);
+  }
+
+  /* Sin esto el <picture> es inline y el img no puede llenar el alto del
+     marco del celular. */
+  .shot :global(picture) {
+    display: block;
+    height: 100%;
   }
 
   .shot :global(img) {
