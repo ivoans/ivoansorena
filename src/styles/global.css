@@ -10,7 +10,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  /* Only compensates the sticky header: each section's own top padding already gives the heading air. */
+  scroll-padding-top: var(--header-h);
 }
 
 body {
@@ -51,8 +52,6 @@ h1, h2, h3, h4 {
 }
 
 p { text-wrap: pretty; }
-
-:target { scroll-margin-top: calc(var(--header-h) + 24px); }
 
 /* ---- Foco ----------------------------------------------------------- */
 :focus-visible {
