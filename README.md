@@ -1,95 +1,70 @@
 # ivoansorena.com.ar
 
-Portfolio de Ivo Ansorena Pereira. Astro 7 + TypeScript, sitio estático, sin framework de UI.
+Personal portfolio of Ivo Ansorena Pereira, Full Stack Developer.
+Live at **[ivoansorena.com.ar](https://ivoansorena.com.ar)**.
 
-## Correr el proyecto
+A single static page that presents two production systems through case studies
+and screenshots, plus other projects, background and contact.
 
-Necesita **Node 22.23.4 o superior** (está en `.nvmrc`) y **pnpm** (versión fijada
-en `packageManager` de `package.json`).
+## Stack
+
+- [Astro](https://astro.build) 7 + TypeScript (strict), fully static, no UI framework
+- Plain CSS with design tokens, self-hosted variable fonts (Outfit, Inter)
+- `astro:assets` for responsive AVIF/WebP screenshots
+- Open Graph image generated at build time with `@resvg/resvg-js`
+- Deployed on Vercel
+
+## Features
+
+- Accessible lightbox built on `<dialog>` (keyboard navigation, closes with Esc)
+- CSS-only phone frame for mobile screenshots
+- Project index with hover/focus previews on desktop and a simple list on mobile
+- All copy in a single translation file, with Astro i18n ready for an English version
+- SEO: canonical URL, Open Graph/Twitter cards, JSON-LD, sitemap and robots
+- Respects `prefers-reduced-motion`, includes a skip link and AA contrast
+
+## Getting started
+
+Requires **Node 22.23.4+** (see `.nvmrc`) and **pnpm** (version pinned in
+`packageManager`).
 
 ```bash
-nvm use            # o: nvm install
+nvm use
 pnpm install
-pnpm dev           # http://localhost:4321
-pnpm build         # astro check + build de producción, sale en dist/
-pnpm preview       # sirve dist/ para revisar el build
+pnpm dev       # http://localhost:4321
+pnpm build     # astro check + production build into dist/
+pnpm preview   # serve dist/ locally
 ```
 
-## Agregar las capturas
-
-Las capturas van en `src/assets/proyectos/` **con el nombre exacto** de la tabla
-de abajo y extensión `.png`. Mientras un archivo no esté, el sitio muestra un
-espacio reservado con el nombre que espera. No hay que tocar código: alcanza con
-copiar el PNG y recargar.
-
-| Archivo | Qué muestra |
-| --- | --- |
-| `contable-clientes` | Listado de clientes con estados |
-| `contable-libro-iva` | Libro IVA con resumen y gráficos |
-| `contable-monotributistas` | Categoría y facturación de 12 meses |
-| `contable-cobranzas` | Cobranzas del día y deuda por antigüedad |
-| `contable-equipo` | Equipo y permisos por módulo |
-| `contable-panel-cliente` | Panel del cliente (escritorio) |
-| `contable-mobile-panel` | Panel del cliente (celular) |
-| `contable-mobile-impuestos` | Impuestos del cliente (celular) |
-| `forja-admin-gimnasios` | Panel de administración de la plataforma |
-| `forja-resumen-gimnasio` | Resumen del gimnasio con su marca |
-| `forja-editor-rutina` | Editor de rutinas del profe |
-| `forja-mobile-semana` | App del alumno: su semana (celular) |
-| `forja-mobile-dia` | App del alumno: registro de pesos (celular) |
-| `forja-progreso-sentadilla` | Gráfico de progreso y récord |
-| `forja-alumnos` | Listado de alumnos del profe |
-| `forja-actividad` | Actividad reciente de los alumnos |
-| `forja-progreso-ejercicios` | Récords por ejercicio |
-| `forja-progreso-cuerpo` | Evolución del peso y medidas |
-| `forja-cuotas` | Estado de cuotas |
-| `forja-pagos` | Historial de pagos de un alumno |
-
-Recomendado: las de escritorio a 2x (por ejemplo 2560×1600) y las de celular en
-proporción 390×844. Astro genera solo los tamaños responsive y los AVIF/WebP.
-
-El texto alternativo de cada captura está en `src/i18n/es.ts`, junto a su clave.
-
-## Dónde está cada cosa
+## Project structure
 
 ```
 src/
-  config.ts              URLs, mail, redes, ruta del CV y anclas
-  i18n/es.ts             TODO el texto del sitio
-  i18n/index.ts          helper de traducciones
-  data/proyectos.ts      resuelve las capturas desde src/assets/proyectos/
-  styles/tokens.css      colores, escala tipográfica, espaciados, radios
-  styles/global.css      reset, utilidades y @font-face
-  layouts/Base.astro     <head>, encabezado, pie y animación de aparición
-  pages/index.astro      la única página
-  pages/og.png.ts        genera /og.png (1200×630) en el build
+  config.ts              site URL, email, social links, CV path, anchors
+  i18n/es.ts             all site copy, including image alt text
+  i18n/index.ts          translation helper
+  data/proyectos.ts      resolves screenshots from src/assets/proyectos/
+  styles/tokens.css      colors, type scale, spacing, radii
+  styles/global.css      reset, utilities and @font-face
+  layouts/Base.astro     <head>, header, footer and reveal animation
+  pages/index.astro      the only page
+  pages/og.png.ts        builds /og.png (1200×630)
   components/
-    Header.astro         encabezado fijo y menú de celular
-    Footer.astro         pie
-    Seo.astro            title, description, canonical, Open Graph, JSON-LD
+    Header.astro, Footer.astro, Seo.astro
     ui/                  Button, Pill, StatCard, SectionHead, Icon
     media/               Shot, Placeholder, PhoneFrame, Lightbox
     sections/            Hero, ProjectIndex, CaseStudy, Feature,
                          OtherProjects, About, Contact
 ```
 
-## Sumar inglés
+Screenshots live in `src/assets/proyectos/` and are picked up by file name. A
+missing file renders a placeholder showing the expected name.
 
-1. Copiar `src/i18n/es.ts` a `src/i18n/en.ts` y traducir.
-2. Registrarlo en `languages` y `dictionaries` de `src/i18n/index.ts`.
-3. Agregar `'en'` a `i18n.locales` en `astro.config.mjs`.
-4. Crear `src/pages/en/index.astro` con el mismo contenido que `index.astro`.
+## Adding English
 
-El idioma por defecto (`es`) no lleva prefijo: queda en `/`, el inglés en `/en/`.
+1. Copy `src/i18n/es.ts` to `src/i18n/en.ts` and translate it.
+2. Register it in `languages` and `dictionaries` in `src/i18n/index.ts`.
+3. Add `'en'` to `i18n.locales` in `astro.config.mjs`.
+4. Create `src/pages/en/index.astro` mirroring `index.astro`.
 
-## Notas
-
-- `src/assets/fonts/Outfit-Variable.ttf` lo usa solo `og.png.ts` en el build;
-  no se sirve al navegador. Las fuentes del sitio están en `public/fonts/`.
-- `astro.config.mjs` activa el watcher por sondeo porque el repo vivía en `/mnt/c`
-  (WSL), donde inotify no da eventos. Ahora está en el sistema de archivos de Linux,
-  así que se puede sacar.
-- `inspo/` (referencias visuales del brief) es local y está en `.gitignore`: son
-  capturas de sitios de terceros y no van al repo.
-- Con `pnpm dev`, abrir la página con `?audit` deja un informe de desbordes y
-  objetivos táctiles chicos.
+Spanish stays at `/` and English is served under `/en/`.
