@@ -7,6 +7,9 @@ import Pill from '../ui/Pill.astro';
 
 const t = useTranslations(Astro.currentLocale);
 const items = t.projectIndex.items;
+const stackByHref = new Map(
+  t.otros.items.map((item): [string, readonly string[]] => [`#${item.id}`, item.stack]),
+);
 ---
 
 <section class="idx section" id={ANCHORS.proyectos}>
@@ -21,50 +24,39 @@ const items = t.projectIndex.items;
     <div class="idx__body">
       <ul class="idx__list" data-idx-list>
         {
-          items.map((item, i) => (
-            <li class="idx__item">
-              <a class="idx__link" href={item.href} data-idx-link data-idx-i={i}>
-                <span class="idx__name">{item.name}</span>
-                <span class="idx__meta">{item.meta}</span>
-              </a>
-
-              <div class="idx__thumb idx__thumb--inline">
-                {INDEX_THUMBS[item.id] ? (
-                  <Shot
-                    name={INDEX_THUMBS[item.id]!}
-                    alt={item.name}
-                    variant="thumb"
-                    zoom={false}
-                    sizes="(min-width: 700px) 320px, 40vw"
-                  />
-                ) : (
-                  <span class="idx__mono" aria-hidden="true">
-                    {item.name.charAt(0)}
-                  </span>
-                )}
-              </div>
-            </li>
-          ))
+          items.map((item, i) => {
+            const thumb = INDEX_THUMBS[item.id];
+            return (
+              <li class="idx__item">
+                <a class="idx__link" href={item.href} data-idx-link data-idx-i={i}>
+                  <span class="idx__name">{item.name}</span>
+                  <span class="idx__meta">{item.meta}</span>
+                  {thumb && (
+                    <div class="idx__thumb">
+                      <Shot name={thumb} alt="" variant="thumb" zoom={false} sizes="240px" />
+                    </div>
+                  )}
+                </a>
+              </li>
+            );
+          })
         }
       </ul>
 
       <div class="idx__stage" aria-hidden="true">
         {
-          items.map((item, i) => (
-            <div class="idx__card" data-idx-card data-idx-i={i}>
-              {INDEX_THUMBS[item.id] ? (
-                <Shot
-                  name={INDEX_THUMBS[item.id]!}
-                  alt=""
-                  variant="thumb"
-                  zoom={false}
-                  sizes="380px"
-                />
-              ) : (
-                <span class="idx__mono idx__mono--lg">{item.name.charAt(0)}</span>
-              )}
-            </div>
-          ))
+          items.map((item, i) => {
+            const thumb = INDEX_THUMBS[item.id];
+            return (
+              <div class="idx__card" data-idx-card data-idx-i={i}>
+                {thumb ? (
+                  <Shot name={thumb} alt="" variant="thumb" zoom={false} sizes="380px" />
+                ) : (
+                  <p class="idx__stack">{stackByHref.get(item.href)?.join(' · ')}</p>
+                )}
+              </div>
+            );
+          })
         }
       </div>
     </div>
@@ -165,25 +157,23 @@ const items = t.projectIndex.items;
   }
 
   /* Miniatura dentro de la fila: es la versión de celular y tablet. */
-  .idx__thumb--inline {
-    padding-bottom: 1.1rem;
+  .idx__thumb {
+    margin-top: 0.8rem;
     max-width: 240px;
   }
 
-  .idx__mono {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 16 / 10;
+  .idx__stack {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding: 1.4rem;
     border-radius: var(--r-md);
     background: var(--surface);
     box-shadow: 0 0 0 1px var(--line-ink);
     font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 250;
-    color: var(--ink-faint);
-  }
-  .idx__mono--lg {
-    font-size: 4rem;
+    font-size: var(--t-h4);
+    font-weight: 300;
+    line-height: var(--lh-title);
   }
 
   .idx__stage {
@@ -198,7 +188,7 @@ const items = t.projectIndex.items;
   }
 
   @media (min-width: 1000px) and (hover: hover) {
-    .idx__thumb--inline {
+    .idx__thumb {
       display: none;
     }
 

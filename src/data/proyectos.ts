@@ -54,12 +54,12 @@ export function missingShots(): string[] {
   return EXPECTED_SHOTS.filter((key) => !byKey.has(key));
 }
 
-/** Miniatura que usa el índice de proyectos; `undefined` = ficha tipográfica. */
+/** Index thumbnail per project. Without one, desktop shows the project's stack instead. */
 export const INDEX_THUMBS: Record<string, string | undefined> = {
   contable: 'contable-clientes',
   forja: 'forja-resumen-gimnasio',
   stock: undefined,
-  landing: undefined,
+  landing: 'landing-contable',
   turnos: undefined,
 };
 
