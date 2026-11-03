@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
-import { fileURLToPath } from 'node:url';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 
 import { SITE } from '../config';
@@ -7,9 +8,17 @@ import { useTranslations } from '../i18n';
 
 /**
  * Imagen Open Graph 1200×630 generada en el build, con la tipografía del sitio.
- * No depende de ningún servicio externo: el TTF está en el repo.
+ * No depende de ningún servicio externo: los TTF están en el repo.
  */
-const fontPath = fileURLToPath(new URL('../assets/fonts/Outfit-Variable.ttf', import.meta.url));
+// Static weights because resvg ignores a variable font's weight axis. Resolved from the project
+// root because the page gets bundled elsewhere, so import.meta.url can't locate src/.
+const fontPaths = ['Outfit-Light.ttf', 'Outfit-Regular.ttf', 'Outfit-Medium.ttf'].map((file) =>
+  resolve('src/assets/fonts', file),
+);
+
+// resvg drops the text without an error when a font is missing, so fail the build instead.
+const missingFont = fontPaths.find((fontPath) => !existsSync(fontPath));
+if (missingFont) throw new Error(`Missing Open Graph font: ${missingFont}`);
 
 const escape = (value: string) =>
   value
@@ -63,7 +72,7 @@ export const GET: APIRoute = () => {
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'width', value: 1200 },
     font: {
-      fontFiles: [fontPath],
+      fontFiles: fontPaths,
       defaultFontFamily: 'Outfit',
       loadSystemFonts: false,
     },
