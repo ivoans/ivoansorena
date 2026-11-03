@@ -317,7 +317,7 @@ export const es = {
     title: 'Quién soy',
     paragraphs: [
       'Soy desarrollador Full Stack, de Bahía Blanca. Desde 2024 trabajo de forma independiente desarrollando sistemas de gestión para clientes reales, y me gusta estar en todo el proceso: entender qué necesita quien lo va a usar, diseñar la solución y hacerse cargo de que funcione en producción.',
-      'Soy Técnico Universitario en Programación (UTN, promedio 8,50). Uso a diario herramientas de IA para programar, siempre revisando y entendiendo el código antes de integrarlo.',
+      'Terminé la Tecnicatura Universitaria en Programación en la UTN (promedio 8,50, título en trámite). Uso a diario herramientas de IA para programar, siempre revisando y entendiendo el código antes de integrarlo.',
       'Hoy busco sumarme a un equipo de desarrollo donde seguir creciendo como Full Stack.',
     ],
     skillsTitle: 'Conocimientos técnicos',
