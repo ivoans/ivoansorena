@@ -18,7 +18,6 @@ const { title, description } = Astro.props;
 const AUDIT_JS = `if (new URL(location.href).searchParams.has('audit')) {
   var sc = new URL(location.href).searchParams.get('scroll');
   if (sc) window.scrollTo(0, Number(sc));
-  document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('is-revealed'); });
   var doc = document.documentElement, vw = doc.clientWidth, out = [], seen = {};
   out.push('viewport=' + vw + ' scrollWidth=' + doc.scrollWidth + ' docHeight=' + doc.scrollHeight);
   if (doc.scrollWidth > vw) out.push('OVERFLOW +' + (doc.scrollWidth - vw) + 'px');
@@ -86,32 +85,6 @@ const AUDIT_JS = `if (new URL(location.href).searchParams.has('audit')) {
     </main>
 
     <slot name="footer" />
-
-    <script is:inline>
-      // Marca que hay JS para que las animaciones de aparición solo corran ahí.
-      document.documentElement.classList.add('js');
-    </script>
-
-    <script>
-      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (reduced || !('IntersectionObserver' in window)) {
-        targets.forEach((el) => el.classList.add('is-revealed'));
-      } else {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (!entry.isIntersecting) continue;
-              entry.target.classList.add('is-revealed');
-              observer.unobserve(entry.target);
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-        );
-        targets.forEach((el) => observer.observe(el));
-      }
-    </script>
 
     {import.meta.env.DEV && <script is:inline set:html={AUDIT_JS} />}
   </body>

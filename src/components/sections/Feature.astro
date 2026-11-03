@@ -25,7 +25,7 @@ const onlyPhones = shots.length === 0 && phoneShots.length > 0;
 const num = String(index + 1).padStart(2, '0');
 ---
 
-<li class:list={['feat', onlyPhones && 'feat--phones']} data-reveal>
+<li class:list={['feat', onlyPhones && 'feat--phones']}>
   <div class="feat__text">
     <p class="feat__num" aria-hidden="true">{num}</p>
     <h4 class="feat__title">{title}</h4>

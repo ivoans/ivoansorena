@@ -12,8 +12,8 @@ const t = useTranslations(Astro.currentLocale);
 
     <ul class="others__grid">
       {
-        t.otros.items.map((item, i) => (
-          <li class="card" id={item.id} data-reveal style={`--reveal-delay:${i * 80}ms`}>
+        t.otros.items.map((item) => (
+          <li class="card" id={item.id}>
             <h3 class="card__title">{item.name}</h3>
             <p class="card__meta">{item.meta}</p>
             <p class="card__body">{item.body}</p>

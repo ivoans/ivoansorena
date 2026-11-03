@@ -64,7 +64,7 @@ const num = String(index + 1).padStart(2, '0');
       <p class="case__summary">{project.summary}</p>
     </header>
 
-    <div class="case__intro" data-reveal>
+    <div class="case__intro">
       <div>
         <h3 class="case__label">{t.caseStudies.contextLabel}</h3>
         <p>{project.context}</p>
@@ -92,7 +92,7 @@ const num = String(index + 1).padStart(2, '0');
 
     {
       project.behind.length > 0 && (
-        <section class="case__behind" data-reveal>
+        <section class="case__behind">
           <h3 class="case__label">{t.caseStudies.behindLabel}</h3>
           <ul class="case__behind-list">
             {project.behind.map((item) => (
@@ -108,7 +108,7 @@ const num = String(index + 1).padStart(2, '0');
 
     {
       project.gallery.length > 0 && (
-        <section class="case__gallery" data-reveal>
+        <section class="case__gallery">
           <h3 class="case__label">{t.caseStudies.galleryLabel}</h3>
           <ul class="case__grid">
             {project.gallery.map((shot) => (
@@ -126,7 +126,7 @@ const num = String(index + 1).padStart(2, '0');
       )
     }
 
-    <footer class="case__foot" data-reveal>
+    <footer class="case__foot">
       <div class="case__stack">
         <h3 class="case__label">{t.caseStudies.stackLabel}</h3>
         <ul class="case__chips">

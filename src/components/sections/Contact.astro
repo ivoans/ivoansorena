@@ -10,10 +10,10 @@ const t = useTranslations(Astro.currentLocale);
 <footer class="contact" id={t.contact.id}>
   <div class="container container--wide">
     <div class="contact__card">
-      <h2 class="contact__title" data-reveal>{t.contact.title}</h2>
-      <p class="contact__body" data-reveal style="--reveal-delay:80ms">{t.contact.body}</p>
+      <h2 class="contact__title">{t.contact.title}</h2>
+      <p class="contact__body">{t.contact.body}</p>
 
-      <p class="contact__email" data-reveal style="--reveal-delay:110ms">
+      <p class="contact__email">
         <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
         <Button
           variant="ghost"
@@ -29,7 +29,7 @@ const t = useTranslations(Astro.currentLocale);
         </Button>
       </p>
 
-      <div class="contact__actions" data-reveal style="--reveal-delay:140ms">
+      <div class="contact__actions">
         <Button href={`mailto:${SITE.email}`} size="lg" icon="mail" iconPosition="start">
           {t.contact.mail}
         </Button>

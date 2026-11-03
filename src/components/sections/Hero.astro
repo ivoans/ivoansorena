@@ -47,8 +47,8 @@ const t = useTranslations(Astro.currentLocale);
 
     <ul class="hero__stats">
       {
-        t.hero.stats.map((stat, i) => (
-          <li data-reveal style={`--reveal-delay:${i * 90}ms`}>
+        t.hero.stats.map((stat) => (
+          <li>
             <StatCard eyebrow={stat.eyebrow} value={stat.value} caption={stat.caption} />
           </li>
         ))
