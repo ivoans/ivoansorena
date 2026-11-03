@@ -6,3 +6,6 @@ dist/
 .preview/
 *.log
 inspo/
+.env
+.env.*
+!.env.example

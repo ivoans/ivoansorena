@@ -2,9 +2,11 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
+import { env } from './src/env.ts';
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ivoansorena.com.ar',
+  site: env.PUBLIC_SITE_URL,
   trailingSlash: 'never',
 
   i18n: {

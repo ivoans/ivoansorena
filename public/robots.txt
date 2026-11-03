@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://ivoansorena.com.ar/sitemap-index.xml

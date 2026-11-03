@@ -31,7 +31,11 @@ export const GET: APIRoute = () => {
   const t = useTranslations();
   const [first, second] = t.meta.ogStats;
 
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  // resvg can't measure text before rendering, so the width is estimated from the character count.
+  const pillRight = 1112;
+  const pillWidth = SITE.domain.length * 12 + 56;
+
+  const svg =`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#ebe9e4"/>
   <rect x="28" y="28" width="1144" height="574" rx="36" fill="none" stroke="#0b3530" stroke-opacity="0.22"/>
 
@@ -63,8 +67,8 @@ export const GET: APIRoute = () => {
     second!.label,
   )}</text>
 
-  <rect x="884" y="492" width="228" height="56" rx="28" fill="#333333"/>
-  <text x="998" y="528" font-family="Outfit" font-size="24" font-weight="500" fill="#b5dda8" text-anchor="middle">${escape(
+  <rect x="${pillRight - pillWidth}" y="492" width="${pillWidth}" height="56" rx="28" fill="#333333"/>
+  <text x="${pillRight - pillWidth / 2}" y="528" font-family="Outfit" font-size="24" font-weight="500" fill="#b5dda8" text-anchor="middle">${escape(
     SITE.domain,
   )}</text>
 </svg>`;

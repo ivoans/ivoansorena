@@ -1,7 +1,7 @@
 # ivoansorena.com.ar
 
 Personal portfolio of Ivo Ansorena Pereira, Full Stack Developer.
-Live at **[ivoansorena.com.ar](https://ivoansorena.com.ar)**.
+Live at **[ivoansorena.vercel.app](https://ivoansorena.vercel.app)**.
 
 A single static page that presents two production systems through case studies
 and screenshots, plus other projects, background and contact.
@@ -31,15 +31,21 @@ Requires **Node 22.23.4+** (see `.nvmrc`) and **pnpm** (version pinned in
 ```bash
 nvm use
 pnpm install
-pnpm dev       # http://localhost:4321
-pnpm build     # astro check + production build into dist/
-pnpm preview   # serve dist/ locally
+cp .env.example .env   # then set PUBLIC_SITE_URL
+pnpm dev               # http://localhost:4321
+pnpm build             # astro check + production build into dist/
+pnpm preview           # serve dist/ locally
 ```
+
+`PUBLIC_SITE_URL` is the URL of the deployed site. It drives the canonical URL,
+Open Graph tags, JSON-LD, sitemap and robots, and the build fails without it. On
+Vercel, set it in the project's environment variables.
 
 ## Project structure
 
 ```
 src/
+  env.ts                 validates environment variables at startup
   config.ts              site URL, email, social links, CV path, anchors
   i18n/es.ts             all site copy, including image alt text
   i18n/index.ts          translation helper
@@ -49,6 +55,7 @@ src/
   layouts/Base.astro     <head>, header, footer and reveal animation
   pages/index.astro      the only page
   pages/og.png.ts        builds /og.png (1200×630)
+  pages/robots.txt.ts    builds /robots.txt
   components/
     Header.astro, Footer.astro, Seo.astro
     ui/                  Button, Pill, StatCard, SectionHead, Icon
