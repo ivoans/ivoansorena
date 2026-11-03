@@ -28,7 +28,6 @@ body {
 }
 
 img, picture, svg, video { display: block; max-width: 100%; }
-svg { fill: currentColor; }
 
 input, button, textarea, select { font: inherit; color: inherit; }
 
