@@ -14,7 +14,7 @@ export const es = {
   meta: {
     title: 'Ivo Ansorena Pereira — Desarrollador Full Stack',
     description:
-      'Desarrollador Full Stack en Bahía Blanca, Argentina. Node.js, TypeScript, React y PostgreSQL. Dos sistemas de gestión en producción con más de 380 usuarios activos.',
+      'Desarrollador Full Stack en Argentina. Node.js, TypeScript, React y PostgreSQL. Dos sistemas de gestión en producción con más de 380 usuarios activos.',
     ogImageAlt:
       'Ivo Ansorena Pereira, Desarrollador Full Stack. Node.js, TypeScript, React y PostgreSQL.',
     /* Versiones cortas para la imagen Open Graph, que tiene poco espacio. */
@@ -51,7 +51,7 @@ export const es = {
     stack: ['Node.js', 'TypeScript', 'React', 'PostgreSQL'],
     ctaProjects: 'Ver proyectos',
     ctaCv: 'Descargar CV',
-    location: 'Bahía Blanca, Argentina',
+    location: 'Argentina',
     availability: 'Disponible para trabajo remoto, híbrido o presencial',
   },
 
@@ -316,7 +316,7 @@ export const es = {
     eyebrow: 'Sobre mí',
     title: 'Quién soy',
     paragraphs: [
-      'Soy desarrollador Full Stack, de Bahía Blanca. Desde 2024 trabajo de forma independiente desarrollando sistemas de gestión para clientes reales, y me gusta estar en todo el proceso: entender qué necesita quien lo va a usar, diseñar la solución y hacerse cargo de que funcione en producción.',
+      'Soy desarrollador Full Stack, de Argentina. Desde 2024 trabajo de forma independiente desarrollando sistemas de gestión para clientes reales, y me gusta estar en todo el proceso: entender qué necesita quien lo va a usar, diseñar la solución y hacerse cargo de que funcione en producción.',
       'Terminé la Tecnicatura Universitaria en Programación en la UTN (promedio 8,50, título en trámite). Uso a diario herramientas de IA para programar, siempre revisando y entendiendo el código antes de integrarlo.',
       'Hoy busco sumarme a un equipo de desarrollo donde seguir creciendo como Full Stack.',
     ],
@@ -337,6 +337,9 @@ export const es = {
     title: '¿Hablamos?',
     body: 'Estoy buscando mi próximo desafío como Desarrollador Full Stack. Si tenés una propuesta o querés conocer más sobre algún proyecto, escribime.',
     mail: 'Escribime un mail',
+    copy: 'Copiar',
+    copied: 'Copiado',
+    copyFailed: 'No se pudo: seleccioná el mail',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     cv: 'Descargar CV',

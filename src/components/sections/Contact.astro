@@ -13,6 +13,22 @@ const t = useTranslations(Astro.currentLocale);
       <h2 class="contact__title" data-reveal>{t.contact.title}</h2>
       <p class="contact__body" data-reveal style="--reveal-delay:80ms">{t.contact.body}</p>
 
+      <p class="contact__email" data-reveal style="--reveal-delay:110ms">
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <Button
+          variant="ghost"
+          icon="copy"
+          iconPosition="start"
+          class="contact__copy"
+          hidden
+          data-copy-email={SITE.email}
+          data-label-copied={t.contact.copied}
+          data-label-failed={t.contact.copyFailed}
+        >
+          <span data-copy-label aria-live="polite">{t.contact.copy}</span>
+        </Button>
+      </p>
+
       <div class="contact__actions" data-reveal style="--reveal-delay:140ms">
         <Button href={`mailto:${SITE.email}`} size="lg" icon="mail" iconPosition="start">
           {t.contact.mail}
@@ -32,6 +48,35 @@ const t = useTranslations(Astro.currentLocale);
     </div>
   </div>
 </footer>
+
+<script>
+  const LABEL_RESET_MS = 2000;
+
+  const button = document.querySelector<HTMLButtonElement>('[data-copy-email]');
+  const label = button?.querySelector<HTMLElement>('[data-copy-label]');
+
+  // Without the Clipboard API (no HTTPS, older browsers) the address stays selectable as text.
+  if (button && label && navigator.clipboard) {
+    const { copyEmail = '', labelCopied = '', labelFailed = '' } = button.dataset;
+    const idleLabel = label.textContent ?? '';
+    let resetTimer: number | undefined;
+
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copyEmail);
+        label.textContent = labelCopied;
+      } catch {
+        label.textContent = labelFailed;
+      }
+
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        label.textContent = idleLabel;
+      }, LABEL_RESET_MS);
+    });
+  }
+</script>
 
 <style>
   .contact {
@@ -57,6 +102,28 @@ const t = useTranslations(Astro.currentLocale);
     max-width: 52ch;
     font-size: var(--t-lead);
     color: var(--ink-soft);
+  }
+
+  .contact__email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    margin-top: clamp(1rem, 2vw, 1.25rem);
+  }
+
+  .contact__email a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--font-display);
+    font-size: var(--t-h4);
+    text-underline-offset: 0.2em;
+  }
+
+  /* Button sets its own display, which would otherwise beat the hidden attribute. */
+  .contact__copy[hidden] {
+    display: none;
   }
 
   .contact__actions {
