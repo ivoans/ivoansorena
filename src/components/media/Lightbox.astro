@@ -1,5 +1,6 @@
 ---
 import { useTranslations } from '../../i18n';
+import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 
 /** Un único diálogo para toda la página. `<dialog>` ya trae Esc, foco atrapado
@@ -16,8 +17,11 @@ const t = useTranslations(Astro.currentLocale);
   </div>
 
   <figure class="lb__figure">
-    <div class="lb__canvas">
-      <img data-lb-img alt="" />
+    <div class="lb__canvas" data-lb-canvas>
+      <div class="lb__error" data-lb-error role="alert" hidden>
+        <p>{t.media.loadError}</p>
+        <Button variant="outline" data-lb-retry>{t.media.retry}</Button>
+      </div>
     </div>
     <figcaption class="lb__caption" data-lb-caption></figcaption>
   </figure>
@@ -33,21 +37,42 @@ const t = useTranslations(Astro.currentLocale);
 <script is:inline define:vars={{ counterTemplate: t.media.counter }}>
   (() => {
     const dialog = document.querySelector('[data-lb-dialog]');
-    const img = document.querySelector('[data-lb-img]');
+    const canvas = document.querySelector('[data-lb-canvas]');
+    const failure = document.querySelector('[data-lb-error]');
+    const closeButton = document.querySelector('[data-lb-close]');
     const caption = document.querySelector('[data-lb-caption]');
     const counter = document.querySelector('[data-lb-counter]');
     const triggers = Array.from(document.querySelectorAll('[data-lb]'));
-    if (!dialog || !img || triggers.length === 0) return;
+    if (!dialog || !canvas || !failure || triggers.length === 0) return;
 
     let index = 0;
+    let opener = null;
 
     const show = (i) => {
       index = (i + triggers.length) % triggers.length;
       const el = triggers[index];
-      img.src = el.dataset.lbSrc;
-      img.width = Number(el.dataset.lbW) || 0;
-      img.height = Number(el.dataset.lbH) || 0;
-      img.alt = el.dataset.lbAlt || '';
+      const width = Number(el.dataset.lbW);
+      const height = Number(el.dataset.lbH);
+
+      // A new element per capture: reusing one keeps painting the previous
+      // capture, stretched to the new proportions, until the next one arrives.
+      const image = new Image(width, height);
+      image.alt = el.dataset.lbAlt || '';
+      image.className = 'is-loading';
+      image.style.setProperty('--lb-width', `${width}px`);
+      image.style.setProperty('--lb-ratio', String(width / height));
+      image.addEventListener('load', () => image.classList.remove('is-loading'));
+      image.addEventListener('error', () => {
+        // A capture left behind by navigating must not cover the current one.
+        if (!image.isConnected) return;
+        image.remove();
+        failure.hidden = false;
+      });
+      image.src = el.dataset.lbSrc;
+
+      failure.hidden = true;
+      canvas.replaceChildren(failure, image);
+
       if (caption) caption.textContent = el.dataset.lbAlt || '';
       if (counter) {
         counter.textContent = counterTemplate
@@ -58,14 +83,20 @@ const t = useTranslations(Astro.currentLocale);
 
     triggers.forEach((el, i) => {
       el.addEventListener('click', () => {
+        opener = el;
         show(i);
         dialog.showModal();
       });
     });
 
-    document.querySelector('[data-lb-close]')?.addEventListener('click', () => dialog.close());
+    closeButton?.addEventListener('click', () => dialog.close());
     document.querySelector('[data-lb-prev]')?.addEventListener('click', () => show(index - 1));
     document.querySelector('[data-lb-next]')?.addEventListener('click', () => show(index + 1));
+    document.querySelector('[data-lb-retry]')?.addEventListener('click', () => {
+      // The button is about to hide, and the focus would fall out of the dialog with it.
+      closeButton?.focus();
+      show(index);
+    });
 
     dialog.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1); }
@@ -77,20 +108,27 @@ const t = useTranslations(Astro.currentLocale);
       if (event.target === dialog) dialog.close();
     });
 
-    // Esc lo maneja <dialog>; acá devolvemos el foco a la captura que se estaba
-    // viendo, que no siempre es la que abrió el diálogo. Va diferido: el
-    // navegador reubica el foco después del evento 'close' y pisaría esto.
+    // <dialog> restores focus by itself, except in Safari: clicking a button
+    // there doesn't focus it, so there's nothing to restore. Without scrolling,
+    // like the native restore: the page is where the visitor left it.
     dialog.addEventListener('close', () => {
-      img.removeAttribute('src');
-      const target = triggers[index];
-      requestAnimationFrame(() => target?.focus());
+      canvas.replaceChildren(failure);
+      opener?.focus({ preventScroll: true });
     });
   })();
 </script>
 
 <style>
+  /* Locks the page behind the dialog. On the body so it reaches the viewport:
+     on <html>, the body (overflow-x: hidden) would become the scroll container
+     and unstick the header. */
+  :global(body:has(.lb[open])) {
+    overflow: hidden;
+  }
+
   .lb {
-    width: min(96vw, 1400px);
+    /* Leaves room for the side buttons, which sit half outside the dialog. */
+    width: min(100% - 4rem, 1400px);
     max-width: none;
     max-height: 94dvh;
     margin: auto;
@@ -146,16 +184,38 @@ const t = useTranslations(Astro.currentLocale);
     place-items: center;
   }
 
-  /* La imagen se dimensiona sola y se centra: así no quedan bandas a los
-     costados cuando el alto es lo que limita. */
-  .lb__figure img {
-    display: block;
+  /* Sized from the capture's data, not from the file, so the box is already
+     right while the image loads. The limits: the dialog's width, the file's own
+     width, and the height left by the bar and the caption. */
+  .lb__canvas :global(img) {
     margin-inline: auto;
-    width: auto;
+    width: min(100%, var(--lb-width), (94dvh - 9rem) * var(--lb-ratio));
     height: auto;
-    max-width: 100%;
-    max-height: calc(94dvh - 9rem);
     border-radius: var(--r-sm);
+    background: var(--surface);
+  }
+  .lb__canvas :global(img.is-loading) {
+    animation: lb-pulse var(--dur-pulse) ease-in-out infinite alternate;
+  }
+  @keyframes lb-pulse {
+    to {
+      background-color: var(--bg-alt);
+    }
+  }
+
+  .lb__error:not([hidden]) {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    width: 100%;
+    min-height: min(60dvh, 24rem);
+    margin-block: auto;
+    padding: 1.5rem;
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    font-size: var(--t-sm);
+    text-align: center;
   }
 
   .lb__caption {
@@ -186,7 +246,7 @@ const t = useTranslations(Astro.currentLocale);
 
   @media (max-width: 760px) {
     .lb {
-      width: 100vw;
+      width: 100%;
       max-height: 100dvh;
       height: 100dvh;
       border-radius: 0;
@@ -207,9 +267,8 @@ const t = useTranslations(Astro.currentLocale);
       overscroll-behavior: contain;
       place-items: start center;
     }
-    .lb__figure img {
+    .lb__canvas :global(img) {
       width: 100%;
-      max-height: none;
       margin: auto;
       border-radius: 0;
     }

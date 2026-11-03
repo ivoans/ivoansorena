@@ -12,6 +12,9 @@ html {
   scroll-behavior: smooth;
   /* Only compensates the sticky header: each section's own top padding already gives the heading air. */
   scroll-padding-top: var(--header-h);
+  /* Holds the layout when a modal locks the page and the scrollbar goes. Always on:
+     it also changes what vw measures, so toggling it would reflow every fluid size. */
+  scrollbar-gutter: stable;
 }
 
 body {

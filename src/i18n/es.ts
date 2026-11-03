@@ -361,6 +361,8 @@ export const es = {
     pendingHint: 'Se va a mostrar acá cuando esté el archivo',
     counter: 'Captura {n} de {total}',
     gallery: 'Galería de capturas',
+    loadError: 'No se pudo cargar la captura. Revisá tu conexión.',
+    retry: 'Reintentar',
   },
 } as const;
 
