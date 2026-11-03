@@ -8,10 +8,11 @@ import Header from '../components/Header.astro';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const t = useTranslations(Astro.currentLocale);
-const { title, description } = Astro.props;
+const { title, description, noindex } = Astro.props;
 
 /** Solo en `astro dev`: con ?audit en la URL deja un informe de desbordes y
  *  objetivos táctiles chicos en el DOM, legible con `chrome --dump-dom`. */
@@ -73,7 +74,7 @@ const AUDIT_JS = `if (new URL(location.href).searchParams.has('audit')) {
       crossorigin
     />
 
-    <Seo title={title} description={description} />
+    <Seo title={title} description={description} noindex={noindex} />
   </head>
 
   <body>

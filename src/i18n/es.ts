@@ -27,9 +27,9 @@ export const es = {
   nav: {
     brand: 'Ivo Ansorena Pereira',
     links: [
-      { label: 'Proyectos', href: `#${ANCHORS.proyectos}` },
-      { label: 'Sobre mí', href: `#${ANCHORS.sobreMi}` },
-      { label: 'Contacto', href: `#${ANCHORS.contacto}` },
+      { label: 'Proyectos', href: `/#${ANCHORS.proyectos}` },
+      { label: 'Sobre mí', href: `/#${ANCHORS.sobreMi}` },
+      { label: 'Contacto', href: `/#${ANCHORS.contacto}` },
     ],
     cv: 'Descargar CV',
     openMenu: 'Abrir menú',
@@ -350,6 +350,15 @@ export const es = {
     github: 'GitHub',
     linkedin: 'LinkedIn',
     backToTop: 'Volver arriba',
+  },
+
+  notFound: {
+    seoTitle: 'Página no encontrada — Ivo Ansorena Pereira',
+    seoDescription: 'Esta página no existe. Los proyectos y el contacto están en el inicio.',
+    eyebrow: 'Error 404',
+    title: 'Esta página no existe',
+    body: 'Puede que el link esté mal escrito. Mis proyectos y mi contacto siguen en el inicio.',
+    home: 'Ir al inicio',
   },
 
   media: {
