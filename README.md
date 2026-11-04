@@ -52,8 +52,9 @@ src/
   data/proyectos.ts      resolves screenshots from src/assets/proyectos/
   styles/tokens.css      colors, type scale, spacing, radii
   styles/global.css      reset, utilities and @font-face
-  layouts/Base.astro     <head>, header, footer and reveal animation
-  pages/index.astro      the only page
+  layouts/Base.astro     <head>, header and footer slot
+  pages/index.astro      the main page
+  pages/404.astro        custom not-found page
   pages/og.png.ts        builds /og.png (1200×630)
   pages/robots.txt.ts    builds /robots.txt
   components/
