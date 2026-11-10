@@ -45,7 +45,7 @@ export const es = {
     stats: [
       { eyebrow: 'Sistemas', value: '2', caption: 'en producción, con usuarios reales' },
       { eyebrow: 'Usuarios', value: '+380', caption: 'activos entre los dos sistemas' },
-      { eyebrow: 'Experiencia', value: '2 años', caption: 'desarrollando para clientes' },
+      { eyebrow: 'Experiencia', value: '2 años', caption: 'en empresa y como independiente' },
     ],
     stackLabel: 'Stack principal',
     stack: ['Node.js', 'TypeScript', 'React', 'PostgreSQL'],
@@ -316,7 +316,7 @@ export const es = {
     eyebrow: 'Sobre mí',
     title: 'Quién soy',
     paragraphs: [
-      'Soy desarrollador Full Stack, de Argentina. Desde 2024 trabajo de forma independiente desarrollando sistemas de gestión para clientes reales, y me gusta estar en todo el proceso: entender qué necesita quien lo va a usar, diseñar la solución y hacerse cargo de que funcione en producción.',
+      'Soy desarrollador Full Stack, de Argentina. Trabajé un año y medio en Insert, un proveedor de internet, donde construí la mayor parte de su sistema de gestión interna como único desarrollador. Además, desde 2024 desarrollo de forma independiente sistemas de gestión para clientes reales. Me gusta estar en todo el proceso: entender qué necesita quien lo va a usar, diseñar la solución y hacerme cargo de que funcione en producción.',
       'Terminé la Tecnicatura Universitaria en Programación en la UTN (promedio 8,50, título en trámite). Uso a diario herramientas de IA para programar, siempre revisando y entendiendo el código antes de integrarlo.',
       'Hoy busco sumarme a un equipo de desarrollo donde seguir creciendo como Full Stack.',
     ],
