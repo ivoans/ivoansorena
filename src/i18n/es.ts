@@ -173,6 +173,7 @@ export const es = {
       'Control de acceso por roles (administrador, contador, cliente) y permisos por módulo.',
       'Notificaciones por correo (Resend, con configuración DNS del dominio) y push, y tareas programadas (cron jobs) que actualizan estados.',
       'Auditoría de seguridad propia: 12 hallazgos corregidos en validación, autenticación y manejo de datos sensibles.',
+      'Más de 1.300 tests (Vitest y Supertest) y CI en GitHub Actions con tests y ESLint.',
     ],
     gallery: [],
     stack: [
@@ -266,7 +267,10 @@ export const es = {
         phoneShots: [],
       },
     ],
-    behind: [],
+    behind: [
+      'Notificaciones push con Web Push (VAPID).',
+      'Tests de integración de la API (Vitest y Supertest) y CI con GitHub Actions.',
+    ],
     gallery: [
       { key: 'forja-alumnos', alt: 'Listado de alumnos del profe con su estado.' },
       { key: 'forja-actividad', alt: 'Actividad reciente de los alumnos del gimnasio.' },
