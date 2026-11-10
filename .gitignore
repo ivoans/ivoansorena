@@ -9,3 +9,4 @@ inspo/
 .env
 .env.*
 !.env.example
+capturas-revision/
